@@ -1,0 +1,81 @@
+@import '../../css/variables.less';
+
+.radio-container {
+  cursor: pointer;
+  color: @main-blue;
+
+  &.warning {
+    color: @main-red;
+
+    .radio-body {
+      .radio-ui {
+        border-color: @main-red;
+
+        &.checked {
+          &:after {
+            background: @main-red;
+          }
+        }
+      }
+    }
+  }
+
+  .radio-body {
+    position: relative;
+    margin-right: 2px;
+    display: inline-block;
+    width: 12px;
+    height: 16px;
+    vertical-align: bottom;
+
+    .radio-input {
+      opacity: 0;
+      position: absolute;
+      z-index: 2;
+      margin: 0;
+      width: 12px;
+      height: 12px;
+      cursor: pointer;
+    }
+
+    .radio-ui {
+      position: absolute;
+      z-index: 1;
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border: 1px solid @main-blue;
+      border-radius: 100%;
+      top: 2px;
+      left: 2px;
+
+      &.checked {
+        &::after {
+          background: @main-blue;
+        }
+      }
+
+      &::after {
+        content: '';
+        width: 4px;
+        height: 4px;
+        background: transparent;
+        border-radius: 100%;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+      }
+    }
+  }
+
+  .input-label {
+    font-size: 12px;
+  }
+
+}
+
+.radio-group {
+  .radio-container+.radio-container {
+    margin-left: 8px;
+  }
+}

@@ -1,0 +1,45 @@
+const NavListData=[
+  {
+    key:'home',
+    title:'首页',
+    url:'/home',
+    direction:'right'
+  },{
+    key:'devices',
+    title:'设备管理',
+    url:'/devices',
+    direction:'right'
+  },{
+    key:'energy',
+    title:'能源管理',
+    url:'/energy',
+    direction:'right'
+  },{
+    key:'scenes',
+    title:'场景管理',
+    url:'/scenes',
+    direction:'right'
+  },{
+    key:'staff',
+    title:'人员管理',
+    url:'/staff',
+    direction:'left'
+  },{
+    key:'pulish',
+    title:'信息发布',
+    url:'/pulish',
+    direction:'left'
+  },{
+    key:'alarm',
+    title:'故障报警',
+    url:'/alarms',
+    direction:'left'
+  },{
+    key:'reports',
+    title:'报表管理',
+    url:'/reports',
+    direction:'left'
+  }
+]
+
+export default NavListData

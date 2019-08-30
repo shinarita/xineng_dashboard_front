@@ -1,0 +1,6 @@
+export EnergyPanel from './energyPanel'
+export EnviromentPanel from './enviromentPanel'
+export AlarmPanel from './alarmPanel'
+export DevicePanel from './devicePanel'
+export SecurityPanel from './securityPanel'
+export FaceRecogPanel from './faceRecgoPanel'

@@ -1,0 +1,45 @@
+@import '../../../../css/variables.less';
+
+.security-panel-container {
+  width: 100%;
+  height: 344px;
+  margin-bottom: 20px;
+
+  .monitor-container {
+    width: 360px;
+    height: 230px;
+    margin: 16px auto;
+    border: 1px solid @main-blue;
+    background: @main-deep-blue;
+
+    .monitor-img {
+      display: block;
+      width: 360px;
+      height: 193px;
+    }
+
+    .monitor-list {
+      display: flex;
+      align-items: center;
+      height: 36px;
+      justify-content: center;
+
+      .monitor-number {
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        border: 1px solid @main-blue;
+        color: @main-blue;
+        font-size: 12px;
+        text-align: center;
+        margin-right: 20px;
+        cursor: pointer;
+        &:hover,
+        &.selected{
+          background: @main-blue;
+          color:@main-deep-blue;
+        }
+      }
+    }
+  }
+}

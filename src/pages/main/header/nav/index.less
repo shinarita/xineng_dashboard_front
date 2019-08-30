@@ -1,0 +1,59 @@
+@import '../../../../css/variables.less';
+
+.header-nav-bar {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 10px;
+  margin-top: 16px;
+  padding-left: 30px;
+
+  .title-gap {
+    width: 448px;
+  }
+
+  .header-nav-item {
+    width: 158px;
+    height: 26px;
+    box-sizing: border-box;
+    border: 1px solid @main-blue;
+    background: #082049;
+    opacity: .37;
+
+    &.left {
+      transform: skewX(-30deg);
+      margin-right: 18px;
+
+      .nav-title {
+        transform: skewX(30deg);
+      }
+    }
+
+    &.right {
+      transform: skewX(30deg);
+      margin-left: 18px;
+
+      .nav-title {
+        transform: skewX(-30deg);
+      }
+    }
+
+    &.selected,
+    &:hover {
+      opacity: 1;
+
+      .nav-title {
+        color: #fff;
+      }
+    }
+
+    .nav-title {
+      text-align: center;
+      color: #979797;
+      font-size: 14px;
+      display: inline-block;
+      width: 100%;
+      text-decoration: none;
+    }
+  }
+}

@@ -1,0 +1,54 @@
+@import '../../../../css/variables.less';
+
+.alarm-panel-container {
+  display: flex;
+  width: 100%;
+
+  li+li {
+    margin-left: 8px;
+  }
+}
+
+.alarm-item-container {
+  width: 140px;
+  height: 64px;
+  padding: 5px 12px;
+  cursor: pointer;
+
+  &:hover,
+  &.selected {
+    background: @main-deep-blue;
+
+    .title {
+      color: @main-red;
+    }
+
+    .alarm-count-line {
+      background-image: url('../../../../images/icons/icon_warning_hover.png');
+    }
+  }
+
+  .title {
+    font-size: 14px;
+    color: white;
+    line-height: 20px;
+  }
+
+  .alarm-count-line {
+    text-align: right;
+    background-image: url('../../../../images/icons/icon_warning.png');
+    background-repeat: no-repeat;
+    color: @main-red;
+    background-position: top 6px left 0px;
+
+    .count {
+      font-size: 34px;
+      line-height: 1;
+      margin-right: 2px;
+    }
+
+    .unit {
+      font-size: 12px;
+    }
+  }
+}

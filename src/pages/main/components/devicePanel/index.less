@@ -1,0 +1,133 @@
+@import '../../../../css/variables.less';
+
+.device-panel-container {
+  height: 88px;
+  display: flex;
+}
+
+.left-arrow-container,
+.right-arrow-container {
+  position: relative;
+  width: 22px;
+  height: 100%;
+  background: @main-deep-blue;
+  border: 1px solid @main-blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &.disabled {
+    cursor: no-drop;
+  }
+}
+
+.left-arrow-container {
+  border-right: none;
+
+  .icon-switch {
+    transform: rotate(180deg);
+  }
+
+  .lefttop-corner,
+  .leftbottom-corner {
+    position: absolute;
+    left: -2px;
+    width: 12px;
+    height: 15px;
+  }
+
+  .lefttop-corner {
+    top: -2px;
+  }
+
+  .leftbottom-corner {
+    bottom: -2px;
+  }
+}
+
+.right-arrow-container {
+  border-left: none;
+
+  .righttop-corner,
+  .rightbottom-corner {
+    position: absolute;
+    right: -2px;
+    width: 12px;
+    height: 15px;
+  }
+
+  .righttop-corner {
+    top: -2px;
+  }
+
+  .rightbottom-corner {
+    bottom: -2px;
+  }
+}
+
+.device-list-container {
+  margin: 0 20px;
+  width: 1780px;
+  overflow: hidden;
+  position: relative;
+
+  .device-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    height: 100%;
+    padding: 1px;
+    transition: left linear .2s;
+  }
+}
+
+.device-item-container {
+  width: 242px;
+  height: 100%;
+  margin-right: 12px;
+  border-color: @main-blue-darken;
+  display: flex;
+
+  &:hover {
+    cursor: pointer;
+    background: @main-deep-blue;
+  }
+
+  .item-title {
+    width: 88px;
+    border-right: 1px dashed @main-blue-darken;
+    padding: 9px;
+
+    &-text {
+      color: white;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .item-icon {
+      margin: 8px auto 0;
+      display: block;
+    }
+  }
+
+  .subitem-list {
+    font-size: 12px;
+    padding-top: 12px;
+    padding-left: 12px;
+
+    .subitem {
+      margin-bottom: 6px;
+    }
+
+    .subitem-title {
+      color: #fff;
+      margin-right: 4px;
+    }
+
+    .subitem-cont {
+      color: @main-red;
+    }
+  }
+}

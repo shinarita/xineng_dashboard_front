@@ -1,0 +1,20 @@
+@import './variables.less';
+
+.four-corners-rectangle(@xSize: 51px, @ySize: 45px) {
+  background: url('../images/common/lefttop.png') top -3px left -1px,
+    url('../images/common/righttop.png') top -3px right -1px,
+    url('../images/common/rightbottom.png') bottom -1px right -1px,
+    url('../images/common/leftbottom.png') bottom -1px left -1px;
+  background-repeat: no-repeat;
+  background-size: @xSize, @ySize;
+  border: 1px solid @main-blue;
+}
+
+.bottom-corners-rectangle(@xSize: 51px, @ySize: 45px) {
+  background:
+    url('../images/common/rightbottom.png') bottom -1px right -1px,
+    url('../images/common/leftbottom.png') bottom -1px left -1px;
+  background-repeat: no-repeat;
+  background-size: @xSize, @ySize;
+  border: 1px solid @main-blue;
+}

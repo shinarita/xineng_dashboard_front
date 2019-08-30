@@ -1,0 +1,118 @@
+@import '../../css/variables.less';
+
+.login-container {
+  padding: 0;
+  margin: 0;
+  background: url('../../images/login/bg.png');
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding-top: 50px;
+  background-size: 100%;
+
+  .logo-header {
+    height: 100px;
+    position: relative;
+
+    .deco-left,
+    .deco-right,
+    .deco-center {
+      position: absolute;
+    }
+
+    .deco-left,
+    .deco-right {
+      width: 537px;
+      height: 56px;
+    }
+
+    .deco-center {
+      width: 855px;
+      height: 101px;
+      background: url('../../images/login/deco_center.png');
+      background-size: 100%;
+
+      .website-title {
+        color: @main-blue;
+        font-size: 48px;
+        line-height: 100px;
+        letter-spacing: 0.8px;
+        text-align: center;
+        font-weight: 500;
+      }
+    }
+
+    .deco-left {
+      left: 32.8px;
+      top: 33.4px;
+    }
+
+    .deco-center {
+      top: 0;
+      left: 526.1px;
+    }
+
+    .deco-right {
+      top: 33.4px;
+      left: 1335px;
+    }
+  }
+
+  .english-title-box {
+    margin-top: 10px;
+    color: @main-blue;
+    font-size: 18px;
+    letter-spacing: 6px;
+    text-align: center;
+  }
+
+  .main-content-container {
+    display: flex;
+    margin-top: 48px;
+    padding-left: 168px;
+
+    .login-form-container {
+      margin-top: 148px;
+      margin-left: 1052px;
+      width: 478px;
+      height: 324px;
+      padding: 48px 45px;
+      text-align: center;
+
+      .login-form-item {
+        &+.login-form-item {
+          margin-top: 22px;
+        }
+
+        .login-form-label {
+          display: inline-block;
+          width: 82px;
+          text-align: justify;
+          text-align-last: justify;
+          height: 38px;
+          color: @main-blue;
+          font-size: 26px;
+          line-height: 38px;
+          margin-right: 27px;
+          vertical-align: middle;
+        }
+
+        .login-form-input {
+          height: 46px;
+          width: 277px;
+        }
+      }
+
+      .btn-login {
+        width: 294px;
+        background: transparent;
+        margin-top: 60px;
+
+        &:hover,
+        &:active {
+          background: @main-blue;
+        }
+      }
+    }
+  }
+}

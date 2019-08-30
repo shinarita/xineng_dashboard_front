@@ -1,0 +1,103 @@
+@import '../../../../css/variables.less';
+
+.face-regco-container {
+  width: 100%;
+  height: 386px;
+
+  .current-person-show-panel {
+    margin: 18px 16px;
+    display: flex;
+
+    .face-img {
+      display: block;
+      width: 148px;
+      height: 150px;
+    }
+
+    .person-info-list {
+      margin-left: 40px;
+      margin-top: 42px;
+      color: #fff;
+      font-size: 12px;
+
+      .info-item {
+        margin-bottom: 12px;
+
+        .label {
+          display: inline-block;
+          width: 60px;
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+
+  .person-list-container {
+    width: 368px;
+    height: 120px;
+    margin: 20px 13px;
+    border: 1px dashed @main-blue;
+    overflow: hidden;
+    position: relative;
+
+    .icon-next,
+    .icon-previous {
+      display: inline-block;
+      position: absolute;
+      right: 20px;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      cursor: pointer;
+    }
+
+    .icon-previous {
+      top: 16px;
+      border-bottom: 12px solid @main-red;
+    }
+
+    .icon-next {
+      bottom: 16px;
+      border-top: 12px solid @main-red;
+    }
+
+    .person-list {
+      width: 100%;
+    }
+
+    .person-info {
+      height: 40px;
+      border-bottom: 1px dashed @main-blue;
+      display: flex;
+      align-items: center;
+      color: #fff;
+      font-size: 12px;
+      cursor: pointer;
+
+      &:hover {
+        background: @main-deep-blue;
+      }
+
+      .face-img {
+        display: block;
+        width: 40px;
+        height: 40px;
+        margin-left: 8px;
+      }
+
+      .name {
+        display: block;
+        margin-left: 46px;
+        width: 96px;
+      }
+
+      .time {
+        display: block;
+        width: 92px;
+      }
+
+      .room {
+        display: block;
+      }
+    }
+  }
+}
