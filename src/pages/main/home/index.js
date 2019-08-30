@@ -9,15 +9,16 @@ class Home extends React.Component {
     this.props.getAllDatas()
   }
   render() {
+    const { history } = this.props
     return (
       <div className='home-page-container'>
         <div className='main-top'>
           <div className='top-left'>
-            <EnergyPanel showTotal />
-            <EnviromentPanel showTotal />
+            <EnergyPanel homepage />
+            <EnviromentPanel homepage />
           </div>
           <div className='top-middle'>
-            <AlarmPanel showTotal />
+            <AlarmPanel homepage />
           </div>
           <div className='top-right'>
             <SecurityPanel />
@@ -25,7 +26,10 @@ class Home extends React.Component {
           </div>
         </div>
         <div className='main-footer'>
-          <DevicePanel showTotal />
+          <DevicePanel
+            homepage
+            history={history}
+          />
         </div>
 
       </div>

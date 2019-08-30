@@ -11,17 +11,17 @@ import _ from 'lodash'
 
 class EnviromentPanel extends React.Component {
   static propTypes = {
-    showTotal: PropTypes.bool,
+    homepage: PropTypes.bool,
     currentFloor: PropTypes.string.isRequired,
     envData: PropTypes.object.isRequired,
     isFetchingEnv: PropTypes.bool.isRequired
   }
   static defaultProps = {
-    showTotal: false
+    homepage: false
   }
   getUsageData() {
-    const { envData, showTotal, currentFloor } = this.props
-    let { temperature, humidity, lux, pm25, co2, fan } = showTotal ? envData.total : envData[currentFloor]
+    const { envData, homepage, currentFloor } = this.props
+    let { temperature, humidity, lux, pm25, co2, fan } = homepage ? envData.total : envData[currentFloor]
     const valueData = { temperature, humidity, lux, pm25, co2, fan }
     return EnvList.map(item => {
       return {

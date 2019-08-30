@@ -1,10 +1,11 @@
 import * as reducers from './base'
 import auth from './auth'
 import floor from './floor'
-console.log('reducers', reducers)
+import device from './device'
 
 module.exports = {
   auth,
   floor,
+  device,
   ...reducers
 }

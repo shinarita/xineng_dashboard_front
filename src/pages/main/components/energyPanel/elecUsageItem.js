@@ -12,7 +12,7 @@ export default class ElecUsageItem extends React.Component {
   }
   render() {
     const { title, color, usage, total } = this.props
-    const currentPercentLeft = parseInt((usage / total) * FullPercentLineWidth)
+    const currentPercentLeft = total === 0 ? 0 : parseInt((usage / total) * FullPercentLineWidth)
     return (
       <div className='elec-usage-item-container'>
         <span className={`color-dot`} style={{ background: color }} />

@@ -9,7 +9,7 @@ const reducerOptions = [
     key: 'energy',
     type: Actions.GET_ENERGY
   }, {
-    key: 'device',
+    key: 'devices',
     type: Actions.GET_DEVICE
   }, {
     key: 'alarm',

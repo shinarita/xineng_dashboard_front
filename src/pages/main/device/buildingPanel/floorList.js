@@ -35,7 +35,7 @@ class FloorList extends React.Component {
               <li
                 key={key}
                 className={className}
-                onClick={this.handleChange.bind(this, key)}
+                onClick={enabled ? this.handleChange.bind(this, key) : null}
               >
                 {key.split('').reverse().join('').toUpperCase()}
               </li>
@@ -49,7 +49,6 @@ class FloorList extends React.Component {
 
 export default connect(
   state => {
-    console.log(state)
     return {
       currentFloor: state.floor.data
     }

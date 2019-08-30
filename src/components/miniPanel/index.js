@@ -19,14 +19,14 @@ export default class MiniPanel extends React.Component {
     }
   }
   render() {
-    const { className, children, title, cornerSize } = this.props
+    const { className, children, title, cornerSize, ...rest } = this.props
     const newClassName = classnames('mini-panel-ui', className)
     const cornerSizeStyle = {
       height: `${cornerSize.y}px`,
       width: `${cornerSize.x}px`
     }
     return (
-      <div className={newClassName}>
+      <div className={newClassName} {...rest}>
         <img style={cornerSizeStyle} className='lefttop-corner-bg' src={require('../../images/common/lefttop.png')} />
         <img style={cornerSizeStyle} className='righttop-corner-bg' src={require('../../images/common/righttop.png')} />
         <img style={cornerSizeStyle} className='leftbottom-corner-bg' src={require('../../images/common/leftbottom.png')} />

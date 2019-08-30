@@ -63,3 +63,10 @@ export const switchFloor = (floor) => {
     floor
   }
 }
+
+export const selectDeviceType = deviceType => {
+  return {
+    type: Actions.SELECT_DEVICE_TYPE,
+    deviceType
+  }
+}

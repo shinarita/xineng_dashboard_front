@@ -9,9 +9,9 @@ export const TotalUsageList = [
 ]
 
 export const ElecUsageList = [
-  { key: 'airHandler', color: '#FE0262', title: '空调外机', usage: 10, total: 100 },
-  { key: 'airInterUnit', color: '#00A0E9', title: '空调内机', usage: 20, total: 100 },
-  { key: 'socket', color: '#F8B62D', title: '插座', usage: 30, total: 100 },
-  { key: 'lighting', color: '#8FC31F', title: '照明', usage: 40, total: 100 },
-  { key: 'kitchen', color: '#601986', title: '厨电', usage: 50, total: 100 }
+  { key: 'ac_main', color: '#FE0262', title: '空调外机', usage: 0, total: 0 },
+  { key: 'ac_inner', color: '#00A0E9', title: '空调内机', usage: 0, total: 0 },
+  { key: 'socket', color: '#F8B62D', title: '插座', usage: 0, total: 0 },
+  { key: 'light', color: '#8FC31F', title: '照明', usage: 0, total: 0 },
+  { key: 'kitchen', color: '#601986', title: '厨电', usage: 0, total: 0 }
 ]

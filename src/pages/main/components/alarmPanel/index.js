@@ -8,17 +8,17 @@ import { AlarmList } from './config'
 
 class AlarmPanel extends React.Component {
   static propTypes = {
-    showTotal: PropTypes.bool,
+    homepage: PropTypes.bool,
     currentFloor: PropTypes.string.isRequired,
     alarmData: PropTypes.object.isRequired,
     isFetchingAlarm: PropTypes.bool.isRequired
   }
   static defaultProps = {
-    showTotal: false
+    homepage: false
   }
   getData() {
-    const { alarmData, showTotal, currentFloor } = this.props
-    let { short_circuit, leak, over_heat, surge, more_less_vol, overload, circuit_fire } = showTotal ? alarmData.total : alarmData[currentFloor]
+    const { alarmData, homepage, currentFloor } = this.props
+    let { short_circuit, leak, over_heat, surge, more_less_vol, overload, circuit_fire } = homepage ? alarmData.total : alarmData[currentFloor]
     const countData = { short_circuit, leak, over_heat, surge, more_less_vol, overload, circuit_fire }
     return AlarmList.map(item => {
       return {

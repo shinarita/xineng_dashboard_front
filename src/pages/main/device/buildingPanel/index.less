@@ -22,15 +22,23 @@
   margin-left: 155px;
   width: 740px;
   height: 577px;
-  background: url('../../../../images/main/building_bg.png');
   position: relative;
+
+  &.f3 {
+    background: url('./images/f3_bg.png');
+  }
+
+  &.f7 {
+    background: url('./images/f7_bg.png');
+  }
 
   .device-icon {
     position: absolute;
   }
 }
 
-polygon {
+polygon,
+rect {
   fill: transparent;
   cursor: pointer;
 
@@ -44,7 +52,7 @@ polygon {
   width: 178px;
   height: 220px;
   position: absolute;
-  top: 225px;
+  top: 235px;
   left: 277px;
   border: 1px solid @main-blue;
 
@@ -60,6 +68,7 @@ polygon {
       &:last-child {
         border-top: 1px solid @main-blue;
         padding-top: 6px;
+        margin-top: 8px;
       }
 
       .title {

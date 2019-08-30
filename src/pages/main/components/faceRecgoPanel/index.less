@@ -48,6 +48,11 @@
       border-left: 6px solid transparent;
       border-right: 6px solid transparent;
       cursor: pointer;
+      z-index: 2;
+
+      &.disabled {
+        cursor: no-drop;
+      }
     }
 
     .icon-previous {
@@ -62,6 +67,9 @@
 
     .person-list {
       width: 100%;
+      position: absolute;
+      transition: top .2s linear;
+      z-index: 1;
     }
 
     .person-info {

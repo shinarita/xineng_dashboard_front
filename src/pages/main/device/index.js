@@ -3,11 +3,23 @@ import React from 'react'
 import { EnergyPanel, EnviromentPanel, AlarmPanel, DevicePanel, FaceRecogPanel, SecurityPanel } from '../components'
 import BuildingPanel from './buildingPanel'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { getEnergy, getEnv, getDevice, getAlarm, getLight } from '@actions'
+import { queryParamsToObject } from '@utils'
+import { selectDeviceType } from '@actions'
 
 class Device extends React.Component {
+  static propTypes = {
+    selectDeviceType: PropTypes.func.isRequired
+  }
 
   componentDidMount() {
+    const { location, selectDeviceType } = this.props
+    const queryObj = queryParamsToObject(location.search)
+    console.log(queryObj)
+    if (queryObj.type) {
+      selectDeviceType(queryObj.type)
+    }
     this.props.getAllDatas()
   }
   render() {
@@ -30,7 +42,6 @@ class Device extends React.Component {
         <div className='main-footer'>
           <DevicePanel />
         </div>
-
       </div>
     )
   }
@@ -44,7 +55,8 @@ export default connect(null,
       dispatch(getDevice())
       dispatch(getAlarm())
       dispatch(getEnergy())
-    }
+    },
+    selectDeviceType: deviceType => dispatch(selectDeviceType(deviceType))
   })
 )(Device)
 

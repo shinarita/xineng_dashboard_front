@@ -14,38 +14,37 @@ const MaxShownNumber = 7
 
 class DevicePanel extends React.Component {
   static propTypes = {
-    showTotal: PropTypes.bool,
+    homepage: PropTypes.bool,
     currentFloor: PropTypes.string.isRequired,
     deviceData: PropTypes.object.isRequired,
-    isFetchingDevice: PropTypes.bool.isRequired
+    isFetchingDevice: PropTypes.bool.isRequired,
+    history: PropTypes.object
   }
   static defaultProps = {
-    showTotal: false
+    homepage: false,
+    history: {}
   }
   constructor(props) {
     super(props)
     this.state = {
-      index: 0,
-      left: 0
+      index: 0
     }
     this.handleNext = this.handleNext.bind(this)
     this.handlePrevious = this.handlePrevious.bind(this)
   }
   handleNext() {
     this.setState(prevState => ({
-      index: prevState.index + 1,
-      left: prevState.left - ItemWidth
+      index: prevState.index + 1
     }))
   }
   handlePrevious() {
     this.setState(prevState => ({
-      index: prevState.index - 1,
-      left: prevState.left + ItemWidth
+      index: prevState.index - 1
     }))
   }
   getDeviceData() {
-    const { deviceData, showTotal, currentFloor } = this.props
-    let { fire_alarm, ir_sensors, central_ac, elevator, acs, camera, light } = showTotal ? deviceData.total : deviceData[currentFloor]
+    const { deviceData, homepage, currentFloor } = this.props
+    let { fire_alarm, ir_sensors, central_ac, elevator, acs, camera, light } = homepage ? deviceData.total : deviceData[currentFloor]
     const valueData = { fire_alarm, ir_sensors, central_ac, elevator, acs, camera, light }
     return DeviceList.map(device => {
       const { key, items } = device
@@ -62,27 +61,30 @@ class DevicePanel extends React.Component {
     })
   }
   render() {
-    const { index, left } = this.state
+    const { index } = this.state
     const leftDisabled = index === 0
     const rightDisabled = index >= (Total - MaxShownNumber)
-    const { isFetchingDevice, deviceData } = this.props
+    const { isFetchingDevice, deviceData, homepage, history } = this.props
     const data = isFetchingDevice || _.isEmpty(deviceData) ? DeviceList : this.getDeviceData()
     return (
       <div className='device-panel-container'>
         <LeftArrow disabled={leftDisabled} onClick={this.handlePrevious} />
         <div className='device-list-container'>
-          <ul className='device-list' style={{ left: `${left}px` }}>
+          <ul className='device-list' style={{ left: `-${index * ItemWidth}px` }}>
             {
               data.map(item => {
                 const { key, items, title, icon, height, width } = item
                 return (
                   <DeviceItem
                     key={key}
+                    id={key}
                     title={title}
                     items={items}
                     icon={icon}
                     height={height}
                     width={width}
+                    homepage={homepage}
+                    history={history}
                   />
                 )
               })
@@ -98,8 +100,8 @@ class DevicePanel extends React.Component {
 const mapStateToProps = state => {
   return {
     currentFloor: state.floor.data,
-    deviceData: state.device.data,
-    isFetchingDevice: state.device.isFetching
+    deviceData: state.devices.data,
+    isFetchingDevice: state.devices.isFetching
   }
 }
 export default connect(mapStateToProps)(DevicePanel)

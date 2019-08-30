@@ -8,6 +8,8 @@ export const GET_LIGHT = 'GET_LIGHT'
 
 //===============Normal Actions======================
 export const SWITCH_FLOOR = 'SWITCH_FLOOR'
+export const SELECT_DEVICE_TYPE = 'SELECT_DEVICE_TYPE'
+
 
 //===============Login======================
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'

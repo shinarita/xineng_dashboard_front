@@ -1,6 +1,11 @@
 import React from 'react'
 import { MiniPanel } from '@components'
+import classnames from 'classnames'
 import './index.less'
+
+const PersonInfoHeight = 40
+// 列表页可以展示的陌生人信息的条数
+const ShownNumber = 3
 
 const PersonList = [
   { id: '1', name: 'xxxx1', time: '12:00', room: '503', url: '' },
@@ -11,6 +16,14 @@ const PersonList = [
 ]
 
 export default class FaceRecogPanel extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentIndex: 1
+    }
+    this.handleGoDown = this.handleGoDown.bind(this)
+    this.handleGoUp = this.handleGoUp.bind(this)
+  }
   renderFirstPerson() {
     const { name, time, room, url } = PersonList[0]
     return (
@@ -33,12 +46,29 @@ export default class FaceRecogPanel extends React.Component {
       </div>
     )
   }
+  handleGoUp() {
+    this.setState(
+      prevState => ({
+        currentIndex: prevState.currentIndex - 1
+      })
+    )
+  }
+  handleGoDown() {
+    this.setState(
+      prevState => ({
+        currentIndex: prevState.currentIndex + 1
+      })
+    )
+  }
   renderPersonList() {
+    const { currentIndex } = this.state
+    const goUpDisabled = currentIndex === 1
+    const goDownDisabled = currentIndex + ShownNumber > PersonList.length
     return (
       <div className='person-list-container'>
-        <span className='icon-previous' />
-        <span className='icon-next' />
-        <ul className='person-list'>
+        <span className={classnames('icon-previous', { disabled: goUpDisabled })} onClick={goUpDisabled ? null : this.handleGoUp} />
+        <span className={classnames('icon-next', { disabled: goDownDisabled })} onClick={goDownDisabled ? null : this.handleGoDown} />
+        <ul className='person-list' style={{ top: `-${PersonInfoHeight * (currentIndex - 1)}px` }}>
           {
             PersonList.map((person, index) => {
               const { id, name, time, room, url } = person

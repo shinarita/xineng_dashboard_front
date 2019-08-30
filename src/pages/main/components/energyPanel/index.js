@@ -10,17 +10,17 @@ import _ from 'lodash'
 
 class EnergyPanel extends React.Component {
   static propTypes = {
-    showTotal: PropTypes.bool,
+    homepage: PropTypes.bool,
     currentFloor: PropTypes.string.isRequired,
     energyData: PropTypes.object.isRequired,
     isFetchingEnergy: PropTypes.bool.isRequired
   }
   static defaultProps = {
-    showTotal: false
+    homepage: false
   }
   getUsageData() {
-    const { energyData, showTotal, currentFloor } = this.props
-    let { water, money, total, average_electric, average_water, average_by_area } = showTotal ? energyData.total : energyData[currentFloor]
+    const { energyData, homepage, currentFloor } = this.props
+    let { water, money, total, average_electric, average_water, average_by_area } = homepage ? energyData.total : energyData[currentFloor]
     const countData = { water, money, total, average_electric, average_water, average_by_area }
     return TotalUsageList.map(item => {
       return {
@@ -29,9 +29,22 @@ class EnergyPanel extends React.Component {
       }
     })
   }
+  getUsageDirectionData() {
+    const { energyData, homepage, currentFloor } = this.props
+    let { ac_main, ac_inner, total, socket, light, kitchen = 10 } = homepage ? energyData.total : energyData[currentFloor]
+    const countData = { ac_main, ac_inner, total, socket, light, kitchen }
+    return ElecUsageList.map(item => {
+      return {
+        ...item,
+        usage: countData[item.key],
+        total: total
+      }
+    })
+  }
   render() {
     const { isFetchingEnergy, energyData } = this.props
     const usageData = isFetchingEnergy || _.isEmpty(energyData) ? TotalUsageList : this.getUsageData()
+    const usageDirectionData = isFetchingEnergy || _.isEmpty(energyData) ? ElecUsageList : this.getUsageDirectionData()
     return (
       <MiniPanel title='能源' className='energy-panel-container'>
         <div className='total-usage-container'>
@@ -56,10 +69,13 @@ class EnergyPanel extends React.Component {
         <div className='elec-usage-container'>
           <SectionTitle title='用电流向' className='section-title' />
           <div className='elec-usage-show-panel'>
-            <RadiusBarChart />
+            <RadiusBarChart
+              values={usageDirectionData.map(item => item.usage)}
+              total={usageDirectionData[0]['total']}
+            />
             <ul className='elec-usage-list'>
               {
-                ElecUsageList.map(item => {
+                usageDirectionData.map(item => {
                   const { key, title, color, usage, total } = item
                   return (
                     <ElecUsageItem
