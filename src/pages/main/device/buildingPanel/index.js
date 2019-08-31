@@ -1,5 +1,5 @@
 import React from 'react'
-import { MiniPanel } from '@components'
+import { MiniPanel, Switch } from '@components'
 import PropTypes from 'prop-types'
 import './index.less'
 import FloorList from './floorList'
@@ -76,17 +76,34 @@ class BuildingPanel extends React.Component {
       return (
         <MiniPanel className='room-info-constainer' title={currentRoom} cornerSize={{ x: 40, y: 34 }}>
           <ul className='room-info-list'>
-            {
-              RoomServiceList.map(item => {
-                const { key, title } = item
-                return (
-                  <li className='device-info-item' key={key}>
-                    <span className='title'>{`${title}：`}</span>
-                    <span className='status'>{'--'}</span>
-                  </li>
-                )
-              })
-            }
+            <li className='device-info-item ac'>
+              <span className='title'>空调：</span>
+              <Switch tips={['OFF', '26\u2103']} />
+            </li>
+            <li className='device-info-item'>
+              <span className='title'>主灯：</span>
+              <Switch on />
+            </li>
+            <li className='device-info-item'>
+              <span className='title'>辅灯：</span>
+              <Switch />
+            </li>
+            <li className='device-info-item'>
+              <span className='title'>门锁：</span>
+              <span className='status'>{'--'}</span>
+            </li>
+            <li className='device-info-item'>
+              <span className='title'>插座：</span>
+              <span className='status'>{'--'}</span>
+            </li>
+            <li className='device-info-item'>
+              <span className='title'>电器：</span>
+              <span className='status'>{'--'}</span>
+            </li>
+            <li className='device-info-item'>
+              <span className='title'>人体感应：</span>
+              <span className='status'>{'--'}</span>
+            </li>
           </ul>
         </MiniPanel>
       )
@@ -124,7 +141,7 @@ class BuildingPanel extends React.Component {
         <div className={classnames('building-body', { f3: currentFloor === '3f', f7: currentFloor === '7f' })}>
           {this.renderFloorSvg()}
           {this.renderRoomInfoPanel()}
-          {/* {this.renderDeviceIconPanel()} */}
+          {this.renderDeviceIconPanel()}
         </div>
       </MiniPanel >
     )

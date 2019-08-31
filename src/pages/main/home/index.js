@@ -19,6 +19,9 @@ class Home extends React.Component {
           </div>
           <div className='top-middle'>
             <AlarmPanel homepage />
+            <video width='1028' height='670' autoPlay loop>
+              <source src={require('../../../images/video/index.mp4')} type='video/mp4' />
+            </video>
           </div>
           <div className='top-right'>
             <SecurityPanel />

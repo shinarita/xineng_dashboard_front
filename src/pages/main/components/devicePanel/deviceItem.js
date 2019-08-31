@@ -33,8 +33,8 @@ class DeviceItem extends React.Component {
     const { homepage, history, id, selectDeviceType } = this.props
     if (homepage) {
       history.push(`/devices?type=${id}`)
-      selectDeviceType(id)
     }
+    selectDeviceType(id)
   }
 
   render() {
@@ -73,7 +73,6 @@ class DeviceItem extends React.Component {
 
 export default connect(
   state => {
-    console.log(state)
     return {
       currentDeviceType: state.device.type
     }

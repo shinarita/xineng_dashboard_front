@@ -17,7 +17,7 @@
     height: 26px;
     box-sizing: border-box;
     border: 1px solid @main-blue;
-    background: #082049;
+    background: @main-deep-blue;
     opacity: .37;
 
     &.left {
@@ -41,6 +41,8 @@
     &.selected,
     &:hover {
       opacity: 1;
+      background: @main-blue;
+      border-color: @main-deep-blue;
 
       .nav-title {
         color: #fff;

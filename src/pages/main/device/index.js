@@ -16,7 +16,6 @@ class Device extends React.Component {
   componentDidMount() {
     const { location, selectDeviceType } = this.props
     const queryObj = queryParamsToObject(location.search)
-    console.log(queryObj)
     if (queryObj.type) {
       selectDeviceType(queryObj.type)
     }

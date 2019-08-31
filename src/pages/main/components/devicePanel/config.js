@@ -25,8 +25,8 @@ export const DeviceList = [
     key: 'central_ac',
     title: '中央空调',
     icon: require('../../../../images/icons/icon_control_aircondition.png'),
-    width: 32,
-    height: 33,
+    width: 34,
+    height: 34,
     items: [
       { key: 'running', title: '运行中', unit: '台', count: '' },
       { key: 'running_on_empty', title: '无人运行', unit: '台', count: '' },

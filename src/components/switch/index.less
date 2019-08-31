@@ -1,0 +1,48 @@
+@import '../../css/variables.less';
+
+.switch-container {
+  height: 14px;
+  width: 34px;
+  position: relative;
+  background: @main-red;
+  border-radius: 9px;
+  font-size: 12px;
+  color: white;
+  padding-right: 8px;
+
+  &.on {
+    background: @main-blue;
+
+    .switch-icon {
+      left: 16px;
+    }
+  }
+
+  .switch-icon {
+    position: absolute;
+    display: inline-block;
+    height: 19px;
+    width: 19px;
+    left: -4px;
+    top: -2px;
+    transition: left .2s linear;
+    cursor: pointer;
+    z-index: 99;
+
+    img {
+      display: block;
+    }
+  }
+
+  .switch-tips {
+    height: 100%;
+    line-height: 14px;
+    width: 100%;
+
+    span {
+      display: inline-block;
+      width: 50%;
+      transform: scale(0.6);
+    }
+  }
+}

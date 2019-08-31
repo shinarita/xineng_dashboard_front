@@ -90,7 +90,7 @@ module.exports = {
           'less-loader'
         ]
       }, {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|svg|jpg|gif|mp4)$/,
         use: [
           {
             loader: 'url-loader',
