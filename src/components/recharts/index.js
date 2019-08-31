@@ -1,1 +1,1 @@
-export RadiusBarChart from './radiusBarChart'
+export DoughnutChart from './doughnutChart'

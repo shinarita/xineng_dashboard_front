@@ -14,6 +14,30 @@ const reducerOptions = [
   }, {
     key: 'alarm',
     type: Actions.GET_ALARM
+  }, {
+    key: 'floorFireAlarms',
+    type: Actions.GET_FLOOR_FIRE_ALARMS
+  }, {
+    key: 'floorIrSensors',
+    type: Actions.GET_FLOOR_IR_SENSORS
+  }, {
+    key: 'floorAirConditioners',
+    type: Actions.GET_FLOOR_AIR_CONDITIONERS
+  }, {
+    key: 'floorElevators',
+    type: Actions.GET_FLOOR_ELEVATORS
+  }, {
+    key: 'floorLocks',
+    type: Actions.GET_FLOOR_LOCKS
+  }, {
+    key: 'floorCameras',
+    type: Actions.GET_FLOOR_CAMERAS
+  }, {
+    key: 'floorLights',
+    type: Actions.GET_FLOOR_LIGHTS
+  },{
+    key: 'roomDeviceInfo',
+    type: Actions.GET_ROOM_DEVICE_INFO
   }
 ]
 

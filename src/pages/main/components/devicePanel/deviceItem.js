@@ -1,10 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { MiniPanel } from '@components'
-import { queryParamsToObject } from '@utils'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
-import { selectDeviceType } from '@actions'
+import {
+  selectDeviceType, getFloorFireAlarms, getFloorIrSensors, getFloorAirConditioners,
+  getFloorElevators, getFloorLocks, getFloorCameras, getFloorLights
+} from '@actions'
+import { getFloorDeviceData } from '../../utils'
 
 class DeviceItem extends React.Component {
   static propTypes = {
@@ -17,7 +20,15 @@ class DeviceItem extends React.Component {
     homepage: PropTypes.bool,
     history: PropTypes.object,
     selectDeviceType: PropTypes.func.isRequired,
-    currentDeviceType: PropTypes.string.isRequired
+    currentDeviceType: PropTypes.string.isRequired,
+    getFloorFireAlarms: PropTypes.func.isRequired,
+    getFloorIrSensors: PropTypes.func.isRequired,
+    getFloorAirConditioners: PropTypes.func.isRequired,
+    getFloorElevators: PropTypes.func.isRequired,
+    getFloorLocks: PropTypes.func.isRequired,
+    getFloorCameras: PropTypes.func.isRequired,
+    getFloorLights: PropTypes.func.isRequired,
+    currentFloor: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
@@ -30,11 +41,21 @@ class DeviceItem extends React.Component {
   }
 
   handleClick() {
-    const { homepage, history, id, selectDeviceType } = this.props
+    const { homepage, history, id, selectDeviceType, currentFloor, getFloorFireAlarms, getFloorIrSensors, getFloorAirConditioners,
+      getFloorElevators, getFloorLocks, getFloorCameras, getFloorLights } = this.props
     if (homepage) {
       history.push(`/devices?type=${id}`)
     }
-    selectDeviceType(id)
+    getFloorDeviceData(id, currentFloor, {
+      selectDeviceType,
+      getFloorFireAlarms,
+      getFloorIrSensors,
+      getFloorAirConditioners,
+      getFloorElevators,
+      getFloorLocks,
+      getFloorCameras,
+      getFloorLights
+    })
   }
 
   render() {
@@ -56,11 +77,11 @@ class DeviceItem extends React.Component {
         <ul className='subitem-list'>
           {
             items.map(item => {
-              const { key, title, unit, count } = item
+              const { key, title, unit, value } = item
               return (
                 <li className='subitem' key={key}>
                   <span className='subitem-title'>{`${title}：`}</span>
-                  <span className='subitem-cont'>{`${count || '--'}${unit}`}</span>
+                  <span className='subitem-cont'>{`${value || '--'}${unit}`}</span>
                 </li>
               )
             })
@@ -74,10 +95,18 @@ class DeviceItem extends React.Component {
 export default connect(
   state => {
     return {
-      currentDeviceType: state.device.type
+      currentDeviceType: state.device.type,
+      currentFloor: state.floor.data
     }
   },
   dispatch => ({
-    selectDeviceType: deviceType => dispatch(selectDeviceType(deviceType))
+    selectDeviceType: deviceType => dispatch(selectDeviceType(deviceType)),
+    getFloorFireAlarms: floor => dispatch(getFloorFireAlarms(floor)),
+    getFloorIrSensors: floor => dispatch(getFloorIrSensors(floor)),
+    getFloorAirConditioners: floor => dispatch(getFloorAirConditioners(floor)),
+    getFloorElevators: floor => dispatch(getFloorElevators(floor)),
+    getFloorLocks: floor => dispatch(getFloorLocks(floor)),
+    getFloorCameras: floor => dispatch(getFloorCameras(floor)),
+    getFloorLights: floor => dispatch(getFloorLights(floor))
   })
 )(DeviceItem)

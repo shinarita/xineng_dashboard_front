@@ -5,16 +5,29 @@ import './index.less'
 import FloorList from './floorList'
 import { connect } from 'react-redux'
 import classnames from 'classnames'
-import { RoomServiceList, Polygons } from './config'
+import { Polygons, DeviceStatusimages } from './config'
+import { DeviceTypes } from '@constants'
+import { getRoomDeviceInfo } from '@actions'
 
 class BuildingPanel extends React.Component {
   static propTypes = {
-    currentFloor: PropTypes.string.isRequired
+    currentFloor: PropTypes.string.isRequired,
+    currentDeviceType: PropTypes.string.isRequired,
+    floorFireAlarms: PropTypes.object.isRequired,
+    floorIrSensors: PropTypes.object.isRequired,
+    floorAirConditioners: PropTypes.object.isRequired,
+    floorElevators: PropTypes.object.isRequired,
+    floorLocks: PropTypes.object.isRequired,
+    floorCameras: PropTypes.object.isRequired,
+    floorLights: PropTypes.object.isRequired,
+    getRoomDeviceInfo: PropTypes.func.isRequired,
+    isFetchingRoomInfo: PropTypes.bool.isRequired
   }
   constructor(props) {
     super(props)
     this.state = {
-      currentRoom: ''
+      currentRoom: '',
+      isFetching: false
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -23,11 +36,18 @@ class BuildingPanel extends React.Component {
         currentRoom: ''
       })
     }
+    if (this.props.isFetchingRoomInfo && !nextProps.isFetchingRoomInfo) {
+      this.setState({
+        isFetching: false
+      })
+    }
   }
   handleClickRoom(room) {
     this.setState({
-      currentRoom: room
+      currentRoom: room,
+      isFetching: true
     })
+    this.props.getRoomDeviceInfo(room)
   }
   renderFloorSvg() {
     const { currentRoom } = this.state
@@ -71,38 +91,42 @@ class BuildingPanel extends React.Component {
     )
   }
   renderRoomInfoPanel() {
-    const { currentRoom } = this.state
-    if (currentRoom) {
+    const { currentRoom, isFetching } = this.state
+    const { roomDeviceInfo } = this.props
+    if (currentRoom && !isFetching) {
+      const { ac_on, ac_value, acs_lock, aux_light, ir_sensor, main_light } = roomDeviceInfo
       return (
         <MiniPanel className='room-info-constainer' title={currentRoom} cornerSize={{ x: 40, y: 34 }}>
           <ul className='room-info-list'>
             <li className='device-info-item ac'>
               <span className='title'>空调：</span>
-              <Switch tips={['OFF', '26\u2103']} />
+              <Switch tips={['OFF', `${ac_value}\u2103`]} on={ac_on} />
             </li>
             <li className='device-info-item'>
               <span className='title'>主灯：</span>
-              <Switch on />
+              <Switch on={main_light} />
             </li>
-            <li className='device-info-item'>
-              <span className='title'>辅灯：</span>
-              <Switch />
-            </li>
+            {
+              aux_light
+                ? (
+                  <li className='device-info-item'>
+                    <span className='title'>辅灯：</span>
+                    <Switch on={aux_light} />
+                  </li>
+                )
+                : null
+            }
             <li className='device-info-item'>
               <span className='title'>门锁：</span>
-              <span className='status'>{'--'}</span>
+              <span className='status'>{acs_lock ? '开启' : '关闭'}</span>
             </li>
             <li className='device-info-item'>
               <span className='title'>插座：</span>
-              <span className='status'>{'--'}</span>
-            </li>
-            <li className='device-info-item'>
-              <span className='title'>电器：</span>
-              <span className='status'>{'--'}</span>
+              <span className='status'>{'有电'}</span>
             </li>
             <li className='device-info-item'>
               <span className='title'>人体感应：</span>
-              <span className='status'>{'--'}</span>
+              <span className='status'>{ir_sensor ? '有人' : '无人'}</span>
             </li>
           </ul>
         </MiniPanel>
@@ -110,21 +134,61 @@ class BuildingPanel extends React.Component {
     }
     return null
   }
+  getDeviceIconData() {
+    const getData = (data) => {
+      const { currentDeviceType, currentFloor } = this.props
+      return Object.keys(data).map(key => {
+        return {
+          room: key,
+          icon: DeviceStatusimages[currentDeviceType][data[key].toString()],
+          iconPosition: Polygons[currentFloor].find(item => item.room === key).iconPosition
+        }
+      })
+    }
+    const { currentDeviceType, floorAirConditioners, floorCameras, floorElevators, floorFireAlarms, floorIrSensors,
+      floorLights, floorLocks } = this.props
+    let data = []
+    switch (currentDeviceType) {
+      // case DeviceTypes.fireAlarm:
+      //   getFloorFireAlarms(currentFloor)
+      //   break
+      case DeviceTypes.irSensors:
+        data = getData(floorIrSensors)
+        break
+      case DeviceTypes.centralAc:
+        data = getData(floorAirConditioners)
+        break
+      // case DeviceTypes.elevator:
+      //   getFloorElevators(currentFloor)
+      //   break
+      case DeviceTypes.lock:
+        data = getData(floorLocks)
+        break
+      case DeviceTypes.camera:
+        data = getData(floorCameras)
+        break
+      case DeviceTypes.light:
+        data = getData(floorLights)
+        break
+    }
+    return data
+  }
   renderDeviceIconPanel() {
-    const { currentFloor } = this.props
+    const data = this.getDeviceIconData()
     return (
       <div className='device-icon-container'>
         {
-          Polygons[currentFloor].map(item => {
-            const { room, iconPositon } = item
+          data.map(item => {
+            const { room, iconPosition, icon } = item
             return (
               <img
                 className='device-icon'
                 key={room}
-                src={require('./images/elevator_on.png')}
+                // src={require('./images/elevator_on.png')}
+                src={icon}
                 style={{
-                  top: `${iconPositon.top}px`,
-                  left: `${iconPositon.left}px`
+                  top: `${iconPosition.top}px`,
+                  left: `${iconPosition.left}px`
                 }}
               />
             )
@@ -151,7 +215,20 @@ class BuildingPanel extends React.Component {
 export default connect(
   state => {
     return {
-      currentFloor: state.floor.data
+      currentFloor: state.floor.data,
+      currentDeviceType: state.device.type,
+      floorFireAlarms: state.floorFireAlarms.data.detail || {},
+      floorIrSensors: state.floorIrSensors.data.detail || {},
+      floorAirConditioners: state.floorAirConditioners.data.detail || {},
+      floorElevators: state.floorElevators.data.detail || {},
+      floorLocks: state.floorLocks.data.detail || {},
+      floorCameras: state.floorCameras.data.detail || {},
+      floorLights: state.floorLights.data.detail || {},
+      roomDeviceInfo: state.roomDeviceInfo.data,
+      isFetchingRoomInfo: state.roomDeviceInfo.isFetching
     }
-  }
+  },
+  dispatch => ({
+    getRoomDeviceInfo: room => dispatch(getRoomDeviceInfo(room))
+  })
 )(BuildingPanel)

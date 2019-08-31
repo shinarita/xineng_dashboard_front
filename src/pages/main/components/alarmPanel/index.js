@@ -5,16 +5,28 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { AlarmList } from './config'
+import { getAlarm } from '@actions'
 
 class AlarmPanel extends React.Component {
   static propTypes = {
     homepage: PropTypes.bool,
     currentFloor: PropTypes.string.isRequired,
     alarmData: PropTypes.object.isRequired,
-    isFetchingAlarm: PropTypes.bool.isRequired
+    isFetchingAlarm: PropTypes.bool.isRequired,
+    getAlarm: PropTypes.func.isRequired
   }
   static defaultProps = {
     homepage: false
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      this.props.getAlarm()
+    }, 60 * 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
   }
   getData() {
     const { alarmData, homepage, currentFloor } = this.props
@@ -55,4 +67,10 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(AlarmPanel)
+const mapDispatchToProps = dispatch => ({
+  getAlarm: () => {
+    dispatch(getAlarm())
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AlarmPanel)

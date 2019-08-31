@@ -19,7 +19,7 @@ export default class FaceRecogPanel extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentIndex: 1
+      currentIndex: 0
     }
   }
   renderFirstPerson() {

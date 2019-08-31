@@ -1,5 +1,5 @@
 import React from 'react'
-import { MiniPanel, SectionTitle, RadiusBarChart } from '@components'
+import { MiniPanel, SectionTitle, DoughnutChart } from '@components'
 import './index.less'
 import EnergyItem from './energyItem'
 import ElecUsageItem from './elecUsageItem'
@@ -31,7 +31,7 @@ class EnergyPanel extends React.Component {
   }
   getUsageDirectionData() {
     const { energyData, homepage, currentFloor } = this.props
-    let { ac_main, ac_inner, total, socket, light, kitchen = 10 } = homepage ? energyData.total : energyData[currentFloor]
+    let { ac_main, ac_inner, total, socket, light, kitchen } = homepage ? energyData.total : energyData[currentFloor]
     const countData = { ac_main, ac_inner, total, socket, light, kitchen }
     return ElecUsageList.map(item => {
       return {
@@ -41,10 +41,18 @@ class EnergyPanel extends React.Component {
       }
     })
   }
+  getChartData(usageDirectionData) {
+    let data = {}
+    usageDirectionData.forEach(item => {
+      data[item.key] = [item.usage, item.total - item.usage]
+    })
+    return data
+  }
   render() {
     const { isFetchingEnergy, energyData } = this.props
     const usageData = isFetchingEnergy || _.isEmpty(energyData) ? TotalUsageList : this.getUsageData()
     const usageDirectionData = isFetchingEnergy || _.isEmpty(energyData) ? ElecUsageList : this.getUsageDirectionData()
+    const chartData = this.getChartData(usageDirectionData)
     return (
       <MiniPanel title='能源' className='energy-panel-container'>
         <div className='total-usage-container'>
@@ -69,9 +77,8 @@ class EnergyPanel extends React.Component {
         <div className='elec-usage-container'>
           <SectionTitle title='用电流向' className='section-title' />
           <div className='elec-usage-show-panel'>
-            <RadiusBarChart
-              values={usageDirectionData.map(item => item.usage)}
-              total={usageDirectionData[0]['total']}
+            <DoughnutChart
+              values={chartData}
             />
             <ul className='elec-usage-list'>
               {

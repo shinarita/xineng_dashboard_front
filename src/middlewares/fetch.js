@@ -38,7 +38,6 @@ function createFetchMiddleware() {
       return axios.all(fetchOptions)
         .then((responses) => {
           responses.forEach((res, index) => {
-            console.log(res)
             dispatch({
               type: `${payload[index]['subType']}_${SUCCESS}`,
               data: res.data
@@ -55,6 +54,9 @@ function createFetchMiddleware() {
         })
     } else {
       let fetchOption = _getFetchOption(payload)
+      dispatch({
+        type: `${type}_${REQUEST}`
+      })
       return axios(fetchOption)
         .then(({ data, status, statusText, headers, config, request }) => {
           if (status >= 200 && status < 400) {

@@ -52,9 +52,15 @@ class DevicePanel extends React.Component {
       return {
         ...device,
         items: items.map(item => {
+          let value = ''
+          if ((typeof item.value) === 'string') {
+            value = data[item.key]
+          } else {
+            value = item.value(data)
+          }
           return {
             ...item,
-            count: data[item.key]
+            value
           }
         })
       }

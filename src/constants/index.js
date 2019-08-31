@@ -8,4 +8,6 @@ export const ActionSuffix = {
   ERROR: 'error'
 }
 
+export * from './type'
+
 

@@ -7,7 +7,7 @@ const MonitorLength = 4
 export default class SecurityPanel extends React.Component {
   render() {
     return (
-      <MiniPanel className='security-panel-container' title='安防'>
+      <MiniPanel className='security-panel-container' title='视频监控'>
         <div className='monitor-container'>
           <img className='monitor-img' src={require('../../../../images/main/monitor.png')} />
         </div>

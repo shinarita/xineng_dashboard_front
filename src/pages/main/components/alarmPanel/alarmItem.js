@@ -11,10 +11,34 @@ export default class AlarmItem extends React.Component {
   static defaultProps = {
     count: ''
   }
+  constructor(props) {
+    super(props)
+    this.state = {
+      highlight: false
+    }
+    this.handleClick = this.handleClick.bind(this)
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.count !== '' && this.props.count < nextProps.count && !this.state.highlight) {
+      this.setState({
+        highlight: true
+      })
+    }
+  }
+  handleClick() {
+    this.setState({
+      highlight: false
+    })
+  }
   render() {
     const { title, count } = this.props
+    const { highlight } = this.state
     return (
-      <MiniPanel className='alarm-item-container' cornerSize={{ x: 18, y: 15 }}>
+      <MiniPanel
+        className={classnames('alarm-item-container', { selected: highlight })}
+        cornerSize={{ x: 18, y: 15 }}
+        onClick={this.handleClick}
+      >
         <p className='title'>
           {title}
         </p>
