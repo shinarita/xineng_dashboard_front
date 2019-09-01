@@ -40,8 +40,8 @@ class AlarmPanel extends React.Component {
     })
   }
   render() {
-    const { isFetchingAlarm, alarmData } = this.props
-    const data = isFetchingAlarm || _.isEmpty(alarmData) ? AlarmList : this.getData()
+    const { isFetchingAlarm, alarmData ,currentFloor} = this.props
+    const data = isFetchingAlarm || _.isEmpty(alarmData) || !alarmData[currentFloor] ? AlarmList : this.getData()
     return (
       <ul className='alarm-panel-container'>
         {

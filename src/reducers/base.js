@@ -35,9 +35,18 @@ const reducerOptions = [
   }, {
     key: 'floorLights',
     type: Actions.GET_FLOOR_LIGHTS
-  },{
+  }, {
     key: 'roomDeviceInfo',
     type: Actions.GET_ROOM_DEVICE_INFO
+  }, {
+    key: 'centralVentilation',
+    type: Actions.SWITCH_CENTRAL_VENTILATION
+  }, {
+    key: 'roomCentralConditioner',
+    type: Actions.CONTROL_CENTRAL_CONDITIONER
+  }, {
+    key: 'roomLight',
+    type: Actions.CONTROL_LIGHT
   }
 ]
 

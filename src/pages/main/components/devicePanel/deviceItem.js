@@ -81,7 +81,7 @@ class DeviceItem extends React.Component {
               return (
                 <li className='subitem' key={key}>
                   <span className='subitem-title'>{`${title}：`}</span>
-                  <span className='subitem-cont'>{`${value || '--'}${unit}`}</span>
+                  <span className='subitem-cont'>{`${(typeof value === 'function' || value === '') ? '--' : value}${unit}`}</span>
                 </li>
               )
             })

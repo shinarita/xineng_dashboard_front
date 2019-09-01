@@ -1,12 +1,13 @@
 import { Actions } from '@constants'
 
-const _getAction = (type, url, method = 'get', params) => {
+const _getAction = (type, url, method = 'get', params, data) => {
   return {
     type,
     payload: {
       method,
       url,
-      params
+      params,
+      data
     }
   }
 }
@@ -78,4 +79,27 @@ export const getFloorLights = (floor) => {
 
 export const getRoomDeviceInfo = room => {
   return _getAction(Actions.GET_ROOM_DEVICE_INFO, '/dashboard/room', 'get', { room })
+}
+
+export const switchCentralVentilation = (on) => {
+  return _getAction(Actions.SWITCH_CENTRAL_VENTILATION, 'control/fan', 'patch', undefined, { on })
+}
+
+export const controlRoomAc = ({ run, room }) => {
+  console.log(run, room)
+  return _getAction(Actions.CONTROL_CENTRAL_CONDITIONER, 'control/air_condition', 'patch', undefined, {
+    room_no: room,
+    run: run,
+    mode: 'cold',
+    temperature: 26
+  })
+}
+
+export const controlLight = ({ room, level, action }) => {
+  console.log(room)
+  return _getAction(Actions.CONTROL_LIGHT, 'control/light', 'patch', undefined, {
+    room_no: room,
+    level,
+    action
+  })
 }

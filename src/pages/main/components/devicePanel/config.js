@@ -22,19 +22,19 @@ export const DeviceList = [
       {
         key: 'rooms', title: '工作中', unit: '间', value: function (row) {
           if (!row) { return '--' }
-          return `${row.empty}/${row.rooms}`
+          return `${row.rooms - row.empty}/${row.rooms}`
         }
       },
       {
         key: 'occupied', title: '办公室', unit: '间', value: function (row) {
           if (!row) { return '--' }
-          return `${row.offices_empty}/${row.offices}`
+          return `${row.offices - row.offices_empty}/${row.offices}`
         }
       },
       {
         key: 'error', title: '会议室', unit: '间', value: function (row) {
           if (!row) { return '--' }
-          return `${row.meeting_empty}/${row.meeting_room}`
+          return `${row.meeting_room - row.meeting_empty}/${row.meeting_room}`
         }
       },
     ]
@@ -66,8 +66,24 @@ export const DeviceList = [
     width: 34,
     height: 34,
     items: [
-      { key: 'location1', title: '客梯停靠', unit: '楼', value: '' },
-      { key: 'location2', title: '货梯停靠', unit: '楼', value: '' },
+      {
+        key: 'location1', title: '客梯停靠', unit: '', value: function (row) {
+          const { location1 } = row
+          if (isNaN(parseInt(location1))) {
+            return location1
+          }
+          return `${location1}楼`
+        }
+      },
+      {
+        key: 'location2', title: '货梯停靠', unit: '', value: function (row) {
+          const { location2 } = row
+          if (isNaN(parseInt(location2))) {
+            return location2
+          }
+          return `${location2}楼`
+        }
+      },
       { key: 'total', title: '当前运行', unit: '部', value: '' },
     ]
   }, {

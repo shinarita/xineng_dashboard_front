@@ -31,6 +31,9 @@ export default class Group extends React.Component {
   }
   handleChange(e) {
     const value = e.target.value
+    if (this.state.checked === value) {
+      return
+    }
     this.setState({
       checked: value
     })

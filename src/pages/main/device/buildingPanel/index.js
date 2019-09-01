@@ -5,9 +5,9 @@ import './index.less'
 import FloorList from './floorList'
 import { connect } from 'react-redux'
 import classnames from 'classnames'
-import { Polygons, DeviceStatusimages } from './config'
+import { RoomPolygons, DeviceStatusimages, MointorPositions } from './config'
 import { DeviceTypes } from '@constants'
-import { getRoomDeviceInfo } from '@actions'
+import { getRoomDeviceInfo, controlRoomAc, controlLight } from '@actions'
 
 class BuildingPanel extends React.Component {
   static propTypes = {
@@ -21,7 +21,9 @@ class BuildingPanel extends React.Component {
     floorCameras: PropTypes.object.isRequired,
     floorLights: PropTypes.object.isRequired,
     getRoomDeviceInfo: PropTypes.func.isRequired,
-    isFetchingRoomInfo: PropTypes.bool.isRequired
+    isFetchingRoomInfo: PropTypes.bool.isRequired,
+    controlRoomAc: PropTypes.func.isRequired,
+    controlLight: PropTypes.func.isRequired,
   }
   constructor(props) {
     super(props)
@@ -29,6 +31,7 @@ class BuildingPanel extends React.Component {
       currentRoom: '',
       isFetching: false
     }
+    this.handleChangeAc = this.handleChangeAc.bind(this)
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.currentFloor !== nextProps.currentFloor) {
@@ -53,10 +56,10 @@ class BuildingPanel extends React.Component {
     const { currentRoom } = this.state
     const { currentFloor } = this.props
     return (
-      <svg width="740px" height="577px" viewBox="-1 -3 740 577" version="1.1" xmlns="http://www.w3.org/2000/svg" >
+      <svg width="740px" height="577px" viewBox={RoomPolygons[currentFloor]['viewBox']} version="1.1" xmlns="http://www.w3.org/2000/svg" >
         <g id="svg" transform="translate(1, 0)" stroke="none" strokeWidth="1" fill="none">
           {
-            Polygons[currentFloor].map(item => {
+            RoomPolygons[currentFloor]['positions'].map(item => {
               const { room, points, rect } = item
               if (rect) {
                 const [x, y, width, height] = points.split(' ')
@@ -90,6 +93,23 @@ class BuildingPanel extends React.Component {
       </svg>
     )
   }
+  handleChangeAc(on) {
+    const { currentRoom } = this.state
+    const { controlRoomAc } = this.props
+    controlRoomAc({
+      room: currentRoom,
+      run: on
+    })
+  }
+  handleChangeLight(isMainLight, on) {
+    const { currentRoom } = this.state
+    const { controlLight } = this.props
+    controlLight({
+      room: currentRoom,
+      level: isMainLight ? '0' : '1',
+      action: on ? '1' : '0'
+    })
+  }
   renderRoomInfoPanel() {
     const { currentRoom, isFetching } = this.state
     const { roomDeviceInfo } = this.props
@@ -100,18 +120,28 @@ class BuildingPanel extends React.Component {
           <ul className='room-info-list'>
             <li className='device-info-item ac'>
               <span className='title'>空调：</span>
-              <Switch tips={['OFF', `${ac_value}\u2103`]} on={ac_on} />
+              <Switch
+                tips={['OFF', `${ac_value}\u2103`]}
+                on={ac_on}
+                onChange={this.handleChangeAc}
+              />
             </li>
             <li className='device-info-item'>
               <span className='title'>主灯：</span>
-              <Switch on={main_light} />
+              <Switch
+                on={main_light}
+                onChange={this.handleChangeLight.bind(this, true)}
+              />
             </li>
             {
               aux_light
                 ? (
                   <li className='device-info-item'>
                     <span className='title'>辅灯：</span>
-                    <Switch on={aux_light} />
+                    <Switch
+                      on={aux_light}
+                      onChange={this.handleChangeLight.bind(this, false)}
+                    />
                   </li>
                 )
                 : null
@@ -141,7 +171,7 @@ class BuildingPanel extends React.Component {
         return {
           room: key,
           icon: DeviceStatusimages[currentDeviceType][data[key].toString()],
-          iconPosition: Polygons[currentFloor].find(item => item.room === key).iconPosition
+          iconPosition: RoomPolygons[currentFloor]['positions'].find(item => item.room === key).iconPosition
         }
       })
     }
@@ -184,7 +214,6 @@ class BuildingPanel extends React.Component {
               <img
                 className='device-icon'
                 key={room}
-                // src={require('./images/elevator_on.png')}
                 src={icon}
                 style={{
                   top: `${iconPosition.top}px`,
@@ -197,15 +226,41 @@ class BuildingPanel extends React.Component {
       </div>
     )
   }
-  render() {
+  renderMonitorIconPanel() {
     const { currentFloor } = this.props
+    return (
+      <div className='monitor-icons-panel'>
+        {
+          MointorPositions[currentFloor].map(item => {
+            const { id, x, y } = item
+            return (
+              <img
+                key={id}
+                src={require('./images/icon_monitor.png')}
+                style={{
+                  top: `${y}px`,
+                  left: `${x}px`
+                }}
+              />
+            )
+          })
+        }
+      </div>
+    )
+  }
+  render() {
+    const { currentFloor, currentDeviceType } = this.props
     return (
       <MiniPanel className='building-panel-container'>
         <FloorList />
         <div className={classnames('building-body', { f3: currentFloor === '3f', f7: currentFloor === '7f' })}>
           {this.renderFloorSvg()}
           {this.renderRoomInfoPanel()}
-          {this.renderDeviceIconPanel()}
+          {
+            currentDeviceType === DeviceTypes.camera
+              ? this.renderMonitorIconPanel()
+              : this.renderDeviceIconPanel()
+          }
         </div>
       </MiniPanel >
     )
@@ -229,6 +284,8 @@ export default connect(
     }
   },
   dispatch => ({
-    getRoomDeviceInfo: room => dispatch(getRoomDeviceInfo(room))
+    getRoomDeviceInfo: room => dispatch(getRoomDeviceInfo(room)),
+    controlRoomAc: options => dispatch(controlRoomAc(options)),
+    controlLight: options => dispatch(controlLight(options))
   })
 )(BuildingPanel)

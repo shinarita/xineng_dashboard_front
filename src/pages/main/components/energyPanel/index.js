@@ -49,9 +49,13 @@ class EnergyPanel extends React.Component {
     return data
   }
   render() {
-    const { isFetchingEnergy, energyData } = this.props
-    const usageData = isFetchingEnergy || _.isEmpty(energyData) ? TotalUsageList : this.getUsageData()
-    const usageDirectionData = isFetchingEnergy || _.isEmpty(energyData) ? ElecUsageList : this.getUsageDirectionData()
+    const { isFetchingEnergy, energyData, currentFloor } = this.props
+    let usageData = TotalUsageList
+    let usageDirectionData = ElecUsageList
+    if (!isFetchingEnergy && !_.isEmpty(energyData) && !!energyData[currentFloor]) {
+      usageData = this.getUsageData()
+      usageDirectionData = this.getUsageDirectionData()
+    }
     const chartData = this.getChartData(usageDirectionData)
     return (
       <MiniPanel title='能源' className='energy-panel-container'>
