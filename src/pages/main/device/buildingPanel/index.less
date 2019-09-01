@@ -23,18 +23,42 @@
   width: 740px;
   height: 577px;
   position: relative;
+  background-size: 100%;
 
   &.f3 {
-    background: url('./images/f3_bg.png');
+    background-image: url('./images/f3_bg.png');
   }
 
   &.f7 {
-    background: url('./images/f7_bg.png');
+    background-image: url('./images/f7_bg.png');
   }
 
   .device-icon {
     position: absolute;
+
+    &.icon-ir_sensors,
+    &.icon-central_ac,
+    &.icon-light {
+      width: 31px;
+      height: 31px;
+    }
+
+    &.icon-elevator {
+      width: 30px;
+      height: 30px;
+    }
+
+    &.icon-acs {
+      width: 26px;
+      height: 30px;
+    }
   }
+}
+
+//------------------------------svg-------------------
+.floor-svg-container {
+  width: 740px;
+  height: 577px;
 }
 
 polygon,
@@ -48,6 +72,8 @@ rect {
   }
 }
 
+//------------------------------svg-------------------
+//------------------------------room-info-------------------
 .room-info-constainer {
   width: 178px;
   height: 224px;
@@ -79,10 +105,12 @@ rect {
   }
 }
 
+//------------------------------room-info-------------------
+//------------------------------monitor-------------------
 .monitor-icons-panel {
   position: absolute;
-  left: 4px;
-  top: 4px;
+  left: 5px;
+  top: 5px;
 
   img {
     position: absolute;
@@ -92,6 +120,22 @@ rect {
   }
 }
 
+//------------------------------monitor-------------------
+//-----------------------------elevator-------------------
+.elevator-icons-panel {
+  position: absolute;
+  left: 70px;
+  top: 16px;
+
+  img {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    display: block;
+  }
+}
+
+//-----------------------------monitor && elevator-------------------
 //-------------floor-item-common-----------------
 .common-bg {
   width: 37px;
@@ -100,6 +144,7 @@ rect {
   font-family: PingFangTC-Regular;
   font-size: 16px;
 }
+
 .building-floor-list-container {
   position: absolute;
   top: 57px;
@@ -112,6 +157,7 @@ rect {
   height: 82%;
   width: 47px;
   overflow: auto;
+
   .floor-container {
     width: 100%;
     height: 100%;
@@ -138,6 +184,7 @@ rect {
 
     &.disabled {
       cursor: no-drop;
+
       &:hover {
         .common-bg;
       }

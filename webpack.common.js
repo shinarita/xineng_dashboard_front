@@ -80,12 +80,6 @@ module.exports = {
           'css-loader',
           {
             loader: 'postcss-loader',
-            options: {
-              plugins: [
-                require('autoprefixer'),
-                require('cssnano'),
-              ],
-            },
           },
           'less-loader'
         ]

@@ -149,3 +149,14 @@ export const MointorPositions = {
     { id: 'moni1', x: 454, y: 10 }
   ]
 }
+
+export const ElevatorPositions = {
+  '3f': [
+    { id: '1', x: 0, y: 404 },
+    { id: '2', x: 473, y: 0 }
+  ],
+  '7f': [
+    { id: '1', x: 0, y: 404 },
+    { id: '2', x: 473, y: 0 }
+  ]
+}
