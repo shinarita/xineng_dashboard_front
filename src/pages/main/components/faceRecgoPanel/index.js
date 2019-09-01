@@ -1,6 +1,7 @@
 import React from 'react'
 import { MiniPanel } from '@components'
 import classnames from 'classnames'
+import {throttle} from '../../utils';
 import './index.less'
 
 const PersonInfoHeight = 40
@@ -12,16 +13,41 @@ const PersonList = [
   { id: '2', name: 'xxxx2', type: '内部人员', time: '12:00', room: '503', url: '', phone: '123456789', profession: '工程师' },
   { id: '3', name: 'xxxx3', type: '内部人员', time: '12:00', room: '503', url: '', phone: '123456789', profession: '工程师' },
   { id: '4', name: 'xxxx4', type: '内部人员', time: '12:00', room: '503', url: '', phone: '123456789', profession: '工程师' },
-  { id: '5', name: 'xxxx5', type: '内部人员', time: '12:00', room: '503', url: '', phone: '123456789', profession: '工程师' }
+  { id: '5', name: 'xxxx5', type: '内部人员', time: '12:00', room: '503', url: '', phone: '123456789', profession: '工程师' },
+  { id: '6', name: 'xxxx6', type: '内部人员', time: '12:00', room: '503', url: '', phone: '123456789', profession: '工程师' },
+  { id: '7', name: 'xxxx7', type: '内部人员', time: '12:00', room: '503', url: '', phone: '123456789', profession: '工程师' },
+  { id: '8', name: 'xxxx8', type: '内部人员', time: '12:00', room: '503', url: '', phone: '123456789', profession: '工程师' },
+  { id: '9', name: 'xxxx9', type: '内部人员', time: '12:00', room: '503', url: '', phone: '123456789', profession: '工程师' },
+  { id: '10', name: 'xxx10', type: '内部人员', time: '12:00', room: '503', url: '', phone: '123456789', profession: '工程师' }
 ]
 
 export default class FaceRecogPanel extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentIndex: 0
+      currentIndex: 0,
+      scrollBarPos: 0
     }
   }
+
+  componentDidMount() {
+    console.log('this.c-----', this.personListRef)
+    this.personListRef.addEventListener('scroll', this.onScroll);
+  }
+
+  
+  componentWillUnmount() {
+    this.personListRef.removeEventListener('scroll', this.onScroll);
+  }
+  
+  onScroll = () => {
+    console.log('scrollTop', this.personListRef.scrollTop);
+    const newScroll = this.personListRef.scrollTop;
+    this.setState({
+      scrollBarPos: newScroll,
+    })
+  }
+
   renderFirstPerson() {
     const { currentIndex } = this.state
     const { name, time, room, url, type, phone, profession } = PersonList[currentIndex]
@@ -57,9 +83,9 @@ export default class FaceRecogPanel extends React.Component {
     })
   }
   renderPersonList() {
-    const { currentIndex } = this.state
+    const { currentIndex, scrollBarPos } = this.state
     return (
-      <div className='person-list-container'>
+      <div className='person-list-container' ref={ e => this.personListRef = e}>
         <ul className='person-list'>
           {
             PersonList.map((person, index) => {
@@ -79,6 +105,7 @@ export default class FaceRecogPanel extends React.Component {
             })
           }
         </ul>
+        <div className="model-scroll-bar" style={{top: `${scrollBarPos}px`}} />
       </div>
     )
   }

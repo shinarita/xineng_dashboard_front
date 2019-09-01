@@ -55,6 +55,19 @@
     height: 152px;
     border-top: 1px dashed @main-blue;
     overflow-y: auto;
+    position: relative;
+    .model-scroll-bar {
+      width: 4px;
+      height: 19px;
+      background: #41A2F9;
+      border-radius: 2px;
+      position: absolute;
+      right: 0;
+      z-index: 1;
+    }
+    &::-webkit-scrollbar{
+      display: none;
+    }
 
     .person-list {
       width: 100%;
@@ -72,16 +85,6 @@
       &:hover,
       &.selected {
         background: @main-deep-blue;
-        position: relative;
-        &::after {
-          content: '';
-          width: 3px;
-          height: 100%;
-          background: #41a2f9;
-          border-radius: 2px;
-          position: absolute;
-          right: 0;
-        }
       }
 
       .face-img {
