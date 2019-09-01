@@ -4,7 +4,7 @@ import '@babel/polyfill';
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import * as reducers from '@reducers'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { HashRouter  as Router, Switch, Route } from 'react-router-dom'
 import { Login, Main } from '@pages'
 import fetchMiddleware from '@middlewares/fetch'
 import Cookies from 'js-cookie'
