@@ -71,7 +71,6 @@ class DevicePanel extends React.Component {
     const leftDisabled = index === 0
     const rightDisabled = index >= (Total - MaxShownNumber)
     const { isFetchingDevice, deviceData, homepage, history, currentFloor } = this.props
-    console.log('deviceData', deviceData)
     const data = isFetchingDevice || _.isEmpty(deviceData) || !deviceData[currentFloor] ? DeviceList : this.getDeviceData()
     return (
       <div className='device-panel-container'>

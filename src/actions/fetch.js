@@ -86,7 +86,6 @@ export const switchCentralVentilation = (on) => {
 }
 
 export const controlRoomAc = ({ run, room }) => {
-  console.log(run, room)
   return _getAction(Actions.CONTROL_CENTRAL_CONDITIONER, 'control/air_condition', 'patch', undefined, {
     room_no: room,
     run: run,
@@ -96,7 +95,6 @@ export const controlRoomAc = ({ run, room }) => {
 }
 
 export const controlLight = ({ room, level, action }) => {
-  console.log(room)
   return _getAction(Actions.CONTROL_LIGHT, 'control/light', 'patch', undefined, {
     room_no: room,
     level,

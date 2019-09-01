@@ -5,7 +5,7 @@ export const getPieChartOption = (values) => {
       {
         name: 'ac_main',
         type: 'pie',
-        radius: [8, 10],
+        radius: ['13.3%', '16.7%'],
         hoverAnimation: false,
         label: {
           show: false
@@ -26,7 +26,7 @@ export const getPieChartOption = (values) => {
       {
         name: 'ac_inner',
         type: 'pie',
-        radius: [14, 18],
+        radius: ['23.3%', '30%'],
         hoverAnimation: false,
         label: {
           show: false
@@ -47,7 +47,7 @@ export const getPieChartOption = (values) => {
       {
         name: 'socket',
         type: 'pie',
-        radius: [22, 28],
+        radius: ['36.7%', '46.7%'],
         hoverAnimation: false,
         label: {
           show: false
@@ -68,7 +68,7 @@ export const getPieChartOption = (values) => {
       {
         name: 'light',
         type: 'pie',
-        radius: [32, 42],
+        radius: ['53.5%', '70%'],
         hoverAnimation: false,
         label: {
           show: false
@@ -89,7 +89,7 @@ export const getPieChartOption = (values) => {
       {
         name: 'kitchen',
         type: 'pie',
-        radius: [46, 60],
+        radius: ['76.6%', '100%'],
         hoverAnimation: false,
         label: {
           show: false

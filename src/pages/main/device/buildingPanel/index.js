@@ -5,9 +5,10 @@ import './index.less'
 import FloorList from './floorList'
 import { connect } from 'react-redux'
 import classnames from 'classnames'
-import { RoomPolygons, DeviceStatusimages, MointorPositions } from './config'
+import { RoomPolygons, DeviceStatusimages, MointorPositions, ElevatorPositions } from './config'
 import { DeviceTypes } from '@constants'
 import { getRoomDeviceInfo, controlRoomAc, controlLight } from '@actions'
+import { toAdaptivePx } from '@utils'
 
 class BuildingPanel extends React.Component {
   static propTypes = {
@@ -56,7 +57,7 @@ class BuildingPanel extends React.Component {
     const { currentRoom } = this.state
     const { currentFloor } = this.props
     return (
-      <svg width="740px" height="577px" viewBox={RoomPolygons[currentFloor]['viewBox']} version="1.1" xmlns="http://www.w3.org/2000/svg" >
+      <svg className='floor-svg-container' viewBox={RoomPolygons[currentFloor]['viewBox']} version="1.1" xmlns="http://www.w3.org/2000/svg" >
         <g id="svg" transform="translate(1, 0)" stroke="none" strokeWidth="1" fill="none">
           {
             RoomPolygons[currentFloor]['positions'].map(item => {
@@ -205,6 +206,7 @@ class BuildingPanel extends React.Component {
   }
   renderDeviceIconPanel() {
     const data = this.getDeviceIconData()
+    const { currentDeviceType } = this.props
     return (
       <div className='device-icon-container'>
         {
@@ -212,12 +214,12 @@ class BuildingPanel extends React.Component {
             const { room, iconPosition, icon } = item
             return (
               <img
-                className='device-icon'
+                className={classnames('device-icon', `icon-${currentDeviceType}`)}
                 key={room}
                 src={icon}
                 style={{
-                  top: `${iconPosition.top}px`,
-                  left: `${iconPosition.left}px`
+                  top: `${toAdaptivePx(iconPosition.top)}`,
+                  left: `${toAdaptivePx(iconPosition.left)}`
                 }}
               />
             )
@@ -238,8 +240,8 @@ class BuildingPanel extends React.Component {
                 key={id}
                 src={require('./images/icon_monitor.png')}
                 style={{
-                  top: `${y}px`,
-                  left: `${x}px`
+                  top: `${toAdaptivePx(y)}`,
+                  left: `${toAdaptivePx(x)}`
                 }}
               />
             )
@@ -247,6 +249,39 @@ class BuildingPanel extends React.Component {
         }
       </div>
     )
+  }
+  renderElevatorIcons() {
+    const { currentFloor } = this.props
+    return (
+      <div className='elevator-icons-panel'>
+        {
+          ElevatorPositions[currentFloor].map(item => {
+            const { id, x, y } = item
+            return (
+              <img
+                key={id}
+                src={require('./images/elevator_on.png')}
+                style={{
+                  top: `${toAdaptivePx(y)}`,
+                  left: `${toAdaptivePx(x)}`
+                }}
+              />
+            )
+          })
+        }
+      </div>
+    )
+  }
+  renderIcons() {
+    const { currentDeviceType } = this.props
+    switch (currentDeviceType) {
+      case DeviceTypes.camera:
+        return this.renderMonitorIconPanel()
+      case DeviceTypes.elevator:
+        return this.renderElevatorIcons()
+      default:
+        return this.renderDeviceIconPanel()
+    }
   }
   render() {
     const { currentFloor, currentDeviceType } = this.props
@@ -256,11 +291,7 @@ class BuildingPanel extends React.Component {
         <div className={classnames('building-body', { f3: currentFloor === '3f', f7: currentFloor === '7f' })}>
           {this.renderFloorSvg()}
           {this.renderRoomInfoPanel()}
-          {
-            currentDeviceType === DeviceTypes.camera
-              ? this.renderMonitorIconPanel()
-              : this.renderDeviceIconPanel()
-          }
+          {this.renderIcons()}
         </div>
       </MiniPanel >
     )

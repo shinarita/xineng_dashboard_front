@@ -16,7 +16,7 @@ export default class ElecUsageItem extends React.Component {
     return (
       <div className='elec-usage-item-container'>
         <span className={`color-dot`} style={{ background: color }} />
-        <span className='title'>{title}</span>
+        <span className='title' title={title}>{title}</span>
         <div className='usage-percent-line' style={{ width: `${FullPercentLineWidth}px` }}>
           <span className='current-percent' style={{ left: `${currentPercentLeft}px` }} />
         </div>

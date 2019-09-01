@@ -8,6 +8,7 @@ import {
   getFloorElevators, getFloorLocks, getFloorCameras, getFloorLights
 } from '@actions'
 import { getFloorDeviceData } from '../../utils'
+import { toAdaptivePx } from '@utils'
 
 class DeviceItem extends React.Component {
   static propTypes = {
@@ -72,7 +73,7 @@ class DeviceItem extends React.Component {
       >
         <div className='item-title'>
           <p className='item-title-text'>{title}</p>
-          <img className='item-icon' style={{ width: width + 'px', height: height + 'px' }} src={icon} />
+          <img className='item-icon' style={{ width: toAdaptivePx(width), height: toAdaptivePx(height) }} src={icon} />
         </div>
         <ul className='subitem-list'>
           {
