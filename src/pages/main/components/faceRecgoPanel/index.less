@@ -72,6 +72,16 @@
       &:hover,
       &.selected {
         background: @main-deep-blue;
+        position: relative;
+        &::after {
+          content: '';
+          width: 3px;
+          height: 100%;
+          background: #41a2f9;
+          border-radius: 2px;
+          position: absolute;
+          right: 0;
+        }
       }
 
       .face-img {
