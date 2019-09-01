@@ -2,7 +2,7 @@ import React from 'react'
 import './index.less'
 import { EnergyPanel, EnviromentPanel, AlarmPanel, DevicePanel, FaceRecogPanel, SecurityPanel } from '../components'
 import { connect } from 'react-redux'
-import { getEnergy, getEnv, getDevice, getAlarm } from '@actions'
+import { getEnergy, getEnv, getDevice, getAlarm, getFaceReg } from '@actions'
 
 class Home extends React.Component {
   componentDidMount() {
@@ -47,6 +47,7 @@ export default connect(null,
       dispatch(getDevice())
       dispatch(getAlarm())
       dispatch(getEnergy())
+      dispatch(getFaceReg())
     }
   })
 )(Home)

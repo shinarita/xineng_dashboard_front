@@ -77,6 +77,10 @@ export const getFloorLights = (floor) => {
   return _getAction(Actions.GET_FLOOR_LIGHTS, 'dashboard/lights', 'get', { floor })
 }
 
+export const getFaceReg = () => {
+  return _getAction(Actions.GET_FACE_REG, 'dashboard/faceRecog', 'get')
+}
+
 export const getRoomDeviceInfo = room => {
   return _getAction(Actions.GET_ROOM_DEVICE_INFO, '/dashboard/room', 'get', { room })
 }

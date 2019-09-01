@@ -4,10 +4,8 @@ import { MiniPanel } from '@components'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import {
-  selectDeviceType, getFloorFireAlarms, getFloorIrSensors, getFloorAirConditioners,
-  getFloorElevators, getFloorLocks, getFloorCameras, getFloorLights
+  selectDeviceType
 } from '@actions'
-import { getFloorDeviceData } from '../../utils'
 import { toAdaptivePx } from '@utils'
 
 class DeviceItem extends React.Component {
@@ -22,13 +20,6 @@ class DeviceItem extends React.Component {
     history: PropTypes.object,
     selectDeviceType: PropTypes.func.isRequired,
     currentDeviceType: PropTypes.string.isRequired,
-    getFloorFireAlarms: PropTypes.func.isRequired,
-    getFloorIrSensors: PropTypes.func.isRequired,
-    getFloorAirConditioners: PropTypes.func.isRequired,
-    getFloorElevators: PropTypes.func.isRequired,
-    getFloorLocks: PropTypes.func.isRequired,
-    getFloorCameras: PropTypes.func.isRequired,
-    getFloorLights: PropTypes.func.isRequired,
     currentFloor: PropTypes.string.isRequired,
   }
 
@@ -42,21 +33,11 @@ class DeviceItem extends React.Component {
   }
 
   handleClick() {
-    const { homepage, history, id, selectDeviceType, currentFloor, getFloorFireAlarms, getFloorIrSensors, getFloorAirConditioners,
-      getFloorElevators, getFloorLocks, getFloorCameras, getFloorLights } = this.props
+    const { homepage, history, id, selectDeviceType } = this.props
     if (homepage) {
       history.push(`/devices?type=${id}`)
     }
-    getFloorDeviceData(id, currentFloor, {
-      selectDeviceType,
-      getFloorFireAlarms,
-      getFloorIrSensors,
-      getFloorAirConditioners,
-      getFloorElevators,
-      getFloorLocks,
-      getFloorCameras,
-      getFloorLights
-    })
+    selectDeviceType(id)
   }
 
   render() {
@@ -101,13 +82,6 @@ export default connect(
     }
   },
   dispatch => ({
-    selectDeviceType: deviceType => dispatch(selectDeviceType(deviceType)),
-    getFloorFireAlarms: floor => dispatch(getFloorFireAlarms(floor)),
-    getFloorIrSensors: floor => dispatch(getFloorIrSensors(floor)),
-    getFloorAirConditioners: floor => dispatch(getFloorAirConditioners(floor)),
-    getFloorElevators: floor => dispatch(getFloorElevators(floor)),
-    getFloorLocks: floor => dispatch(getFloorLocks(floor)),
-    getFloorCameras: floor => dispatch(getFloorCameras(floor)),
-    getFloorLights: floor => dispatch(getFloorLights(floor))
+    selectDeviceType: deviceType => dispatch(selectDeviceType(deviceType))
   })
 )(DeviceItem)

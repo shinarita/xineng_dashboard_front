@@ -15,6 +15,7 @@ export const GET_ROOM_DEVICE_INFO = 'GET_ROOM_DEVICE_INFO'
 export const SWITCH_CENTRAL_VENTILATION = 'SWITCH_CENTRAL_VENTILATION'
 export const CONTROL_CENTRAL_CONDITIONER = 'CONTROL_CENTRAL_CONDITIONER'
 export const CONTROL_LIGHT = 'CONTROL_LIGHT'
+export const GET_FACE_REG = 'GET_FACE_REG'
 
 //===============Normal Actions======================
 export const SWITCH_FLOOR = 'SWITCH_FLOOR'

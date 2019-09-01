@@ -152,11 +152,11 @@ export const MointorPositions = {
 
 export const ElevatorPositions = {
   '3f': [
-    { id: '1', x: 0, y: 404 },
-    { id: '2', x: 473, y: 0 }
+    { id: 'elevator1', x: 0, y: 404 },
+    { id: 'elevator2', x: 473, y: 0 }
   ],
   '7f': [
-    { id: '1', x: 0, y: 404 },
-    { id: '2', x: 473, y: 0 }
+    { id: 'elevator1', x: 0, y: 394 },
+    { id: 'elevator2', x: 473, y: 0 }
   ]
 }

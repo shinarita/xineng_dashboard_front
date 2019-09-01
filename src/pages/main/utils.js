@@ -1,7 +1,7 @@
 import { DeviceTypes } from '@constants'
 
-export const getFloorDeviceData = (type, currentFloor, functions) => {
-  functions.selectDeviceType(type)
+export const getFloorDeviceData = (type, currentFloor, functions, isChange = true) => {
+  isChange && functions.selectDeviceType(type)
   switch (type) {
     case DeviceTypes.fireAlarm:
       functions.getFloorFireAlarms(currentFloor)

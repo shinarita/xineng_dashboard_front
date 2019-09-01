@@ -1,40 +1,39 @@
+/* eslint-disable*/
 import React from 'react'
 import { MiniPanel } from '@components'
 import './index.less'
 import classnames from 'classnames'
-// import './assets/adapter'
-// import './assets/h5splayer'
-// import './assets/h5splayerhelper'
+import '../../../../lib/adapter'
+import { H5sPlayerWS, H5sPlayerHls, H5sPlayerRTC } from '../../../../lib/h5splayer'
+import { H5siOS, H5sPlayerCreate } from '../../../../lib/h5splayerhelper'
 const MonitorLength = 4
 
 const config = {
   videoid: 'video1',
-  protocol: 'rtsp', //http: or https:
-  host: '', //localhost:8080
+  protocol: 'http:', //http: or https:
+  host: 'nbiot.huangloong.com:8088', //localhost:8080
   rootpath: '/', // '/'
   token: 'token1',
   hlsver: 'v1', //v1 is for ts, v2 is for fmp4
-  session: 'c1782caf-b670-42d8-ba90-2244d0b0ee83'
+  session: 'session1'
 }
 export default class SecurityPanel extends React.Component {
   constructor(props) {
     super()
   }
+  componentDidMount() {
+    this.h5handler = new H5sPlayerWS(config);
+    this.h5handler.connect()
+  }
+  componentWillUnmount(){
+    this.h5handler.disconnect()
+    this.h5handler=null
+  }
   render() {
     return (
       <MiniPanel className='security-panel-container' title='视频监控'>
         <div className='monitor-container'>
-          <video data-v-6f922fe9="" id="hvideo11" autoPlay="" webkit-playsinline=""
-            playsInline="" className="h5video"
-            poster="http://nbiot.huangloong.com:8088/api/v1/GetImage?token=token1&amp;session=null"
-            src="blob:http://nbiot.huangloong.com:8088/3ffbe61f-e8a5-4823-9626-612789047dcd"></video>
-          {/* <video
-            id="hvideo11" autoPlay
-            playsInline name="h5video"
-            poster={require('../../../../images/main/monitor.png')}
-            src="blob:http://nbiot.huangloong.com:8088/1cd665ea-b4c9-443b-961c-6f7417c87a1f">
-          </video> */}
-          {/* <img className='monitor-img' src={require('../../../../images/main/monitor.png')} /> */}
+          <video className="h5video" id='video1' autoPlay playsInline></video>
         </div>
         <ul className='monitor-list'>
           {

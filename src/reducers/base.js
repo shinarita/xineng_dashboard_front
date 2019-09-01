@@ -47,6 +47,9 @@ const reducerOptions = [
   }, {
     key: 'roomLight',
     type: Actions.CONTROL_LIGHT
+  }, {
+    key: 'faceReg',
+    type: Actions.GET_FACE_REG
   }
 ]
 

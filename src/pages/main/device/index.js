@@ -5,7 +5,7 @@ import BuildingPanel from './buildingPanel'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import {
-  getEnergy, getEnv, getDevice, getAlarm, getFloorFireAlarms, getFloorIrSensors, getFloorAirConditioners,
+  getEnergy, getEnv, getDevice, getAlarm, getFaceReg, getFloorFireAlarms, getFloorIrSensors, getFloorAirConditioners,
   getFloorElevators, getFloorLocks, getFloorCameras, getFloorLights
 } from '@actions'
 import { queryParamsToObject } from '@utils'
@@ -23,25 +23,37 @@ class Device extends React.Component {
     getFloorCameras: PropTypes.func.isRequired,
     getFloorLights: PropTypes.func.isRequired,
     currentFloor: PropTypes.string.isRequired,
+    currentDeviceType: PropTypes.string.isRequired,
   }
-
-  componentDidMount() {
-    const { location, selectDeviceType, currentFloor, getFloorFireAlarms, getFloorIrSensors, getFloorAirConditioners,
+  getDeviceData(deviceType, floor) {
+    const { selectDeviceType, getFloorFireAlarms, getFloorIrSensors, getFloorAirConditioners,
       getFloorElevators, getFloorLocks, getFloorCameras, getFloorLights } = this.props
+    getFloorDeviceData(deviceType, floor, {
+      selectDeviceType,
+      getFloorFireAlarms,
+      getFloorIrSensors,
+      getFloorAirConditioners,
+      getFloorElevators,
+      getFloorLocks,
+      getFloorCameras,
+      getFloorLights
+    })
+  }
+  componentDidMount() {
+    const { location, currentFloor } = this.props
     const queryObj = queryParamsToObject(location.search)
     if (queryObj.type) {
-      getFloorDeviceData(queryObj.type, currentFloor, {
-        selectDeviceType,
-        getFloorFireAlarms,
-        getFloorIrSensors,
-        getFloorAirConditioners,
-        getFloorElevators,
-        getFloorLocks,
-        getFloorCameras,
-        getFloorLights
-      })
+      this.getDeviceData(queryObj.type, currentFloor)
     }
     this.props.getAllDatas()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.currentFloor !== nextProps.currentFloor
+      || this.props.currentDeviceType !== nextProps.currentDeviceType
+    ) {
+      this.getDeviceData(nextProps.currentDeviceType, nextProps.currentFloor)
+    }
   }
   render() {
     return (
@@ -71,6 +83,7 @@ class Device extends React.Component {
 export default connect(
   state => ({
     currentFloor: state.floor.data,
+    currentDeviceType: state.device.type,
   }),
   dispatch => ({
     getAllDatas: () => {
@@ -78,6 +91,7 @@ export default connect(
       dispatch(getDevice())
       dispatch(getAlarm())
       dispatch(getEnergy())
+      dispatch(getFaceReg())
     },
     selectDeviceType: deviceType => dispatch(selectDeviceType(deviceType)),
     getFloorFireAlarms: floor => dispatch(getFloorFireAlarms(floor)),

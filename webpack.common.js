@@ -38,7 +38,10 @@ module.exports = {
       {
         test: /\.jsx?$/,
         enforce: 'pre',
-        exclude: /node_modules/,
+        exclude: [
+          /node_modules/,
+          path.resolve(__dirname, 'src/lib')
+        ],
         use: {
           loader: 'eslint-loader',
           options: { fix: false }
@@ -49,7 +52,10 @@ module.exports = {
         include: [
           path.resolve(__dirname, 'src')
         ],
-        exclude: /node_modules/,
+        exclude:  [
+          /node_modules/,
+          path.resolve(__dirname, 'src/lib')
+        ],
         use: {
           loader: 'babel-loader'
         }

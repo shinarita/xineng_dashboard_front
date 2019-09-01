@@ -9,6 +9,7 @@ import { RoomPolygons, DeviceStatusimages, MointorPositions, ElevatorPositions }
 import { DeviceTypes } from '@constants'
 import { getRoomDeviceInfo, controlRoomAc, controlLight } from '@actions'
 import { toAdaptivePx } from '@utils'
+import _ from 'lodash'
 
 class BuildingPanel extends React.Component {
   static propTypes = {
@@ -168,15 +169,22 @@ class BuildingPanel extends React.Component {
   getDeviceIconData() {
     const getData = (data) => {
       const { currentDeviceType, currentFloor } = this.props
-      return Object.keys(data).map(key => {
-        return {
-          room: key,
-          icon: DeviceStatusimages[currentDeviceType][data[key].toString()],
-          iconPosition: RoomPolygons[currentFloor]['positions'].find(item => item.room === key).iconPosition
+      let returnData = []
+      Object.keys(data).forEach(key => {
+        const roomInfo = RoomPolygons[currentFloor]['positions'].find(item => item.room === key)
+        if (roomInfo) {
+          returnData.push(
+            {
+              room: key,
+              icon: DeviceStatusimages[currentDeviceType][data[key].toString()],
+              iconPosition: roomInfo.iconPosition
+            }
+          )
         }
       })
+      return returnData
     }
-    const { currentDeviceType, floorAirConditioners, floorCameras, floorElevators, floorFireAlarms, floorIrSensors,
+    const { currentDeviceType, floorAirConditioners, floorCameras, floorFireAlarms, floorIrSensors,
       floorLights, floorLocks } = this.props
     let data = []
     switch (currentDeviceType) {
@@ -189,9 +197,6 @@ class BuildingPanel extends React.Component {
       case DeviceTypes.centralAc:
         data = getData(floorAirConditioners)
         break
-      // case DeviceTypes.elevator:
-      //   getFloorElevators(currentFloor)
-      //   break
       case DeviceTypes.lock:
         data = getData(floorLocks)
         break
@@ -251,16 +256,23 @@ class BuildingPanel extends React.Component {
     )
   }
   renderElevatorIcons() {
-    const { currentFloor } = this.props
+    const { currentFloor, floorElevators } = this.props
+    if (_.isEmpty(floorElevators)) {
+      return null
+    }
     return (
       <div className='elevator-icons-panel'>
         {
           ElevatorPositions[currentFloor].map(item => {
             const { id, x, y } = item
+            let iconName = 'elevator_off'
+            if (floorElevators[id].floor.toString() === currentFloor.substr(0, 1)) {
+              iconName = 'elevator_on'
+            }
             return (
               <img
                 key={id}
-                src={require('./images/elevator_on.png')}
+                src={require(`./images/${iconName}.png`)}
                 style={{
                   top: `${toAdaptivePx(y)}`,
                   left: `${toAdaptivePx(x)}`
@@ -284,7 +296,7 @@ class BuildingPanel extends React.Component {
     }
   }
   render() {
-    const { currentFloor, currentDeviceType } = this.props
+    const { currentFloor } = this.props
     return (
       <MiniPanel className='building-panel-container'>
         <FloorList />
@@ -306,7 +318,7 @@ export default connect(
       floorFireAlarms: state.floorFireAlarms.data.detail || {},
       floorIrSensors: state.floorIrSensors.data.detail || {},
       floorAirConditioners: state.floorAirConditioners.data.detail || {},
-      floorElevators: state.floorElevators.data.detail || {},
+      floorElevators: state.floorElevators.data || {},
       floorLocks: state.floorLocks.data.detail || {},
       floorCameras: state.floorCameras.data.detail || {},
       floorLights: state.floorLights.data.detail || {},
