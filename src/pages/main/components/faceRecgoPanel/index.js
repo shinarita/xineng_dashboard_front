@@ -25,27 +25,8 @@ export default class FaceRecogPanel extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentIndex: 0,
-      scrollBarPos: 0
+      currentIndex: 0
     }
-  }
-
-  componentDidMount() {
-    console.log('this.c-----', this.personListRef)
-    this.personListRef.addEventListener('scroll', this.onScroll);
-  }
-
-  
-  componentWillUnmount() {
-    this.personListRef.removeEventListener('scroll', this.onScroll);
-  }
-  
-  onScroll = () => {
-    console.log('scrollTop', this.personListRef.scrollTop);
-    const newScroll = this.personListRef.scrollTop;
-    this.setState({
-      scrollBarPos: newScroll,
-    })
   }
 
   renderFirstPerson() {
@@ -83,9 +64,9 @@ export default class FaceRecogPanel extends React.Component {
     })
   }
   renderPersonList() {
-    const { currentIndex, scrollBarPos } = this.state
+    const { currentIndex } = this.state
     return (
-      <div className='person-list-container' ref={ e => this.personListRef = e}>
+      <div className='person-list-container'>
         <ul className='person-list'>
           {
             PersonList.map((person, index) => {
@@ -105,7 +86,6 @@ export default class FaceRecogPanel extends React.Component {
             })
           }
         </ul>
-        <div className="model-scroll-bar" style={{top: `${scrollBarPos}px`}} />
       </div>
     )
   }
