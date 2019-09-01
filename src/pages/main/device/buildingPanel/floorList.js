@@ -23,26 +23,30 @@ class FloorList extends React.Component {
   render() {
     const { currentFloor } = this.props
     return (
-      <ul className='building-floor-list-container'>
-        {
-          Floors.map(item => {
-            const { key, enabled } = item
-            const className = classnames('floor-item', {
-              selected: currentFloor === key,
-              disabled: !enabled
+      <div className='building-floor-list-container'>
+        <ul className="floor-container">
+          {
+            Floors.map((item, index) => {
+              const { key, enabled } = item
+              const className = classnames('floor-item', {
+                selected: currentFloor === key,
+                disabled: !enabled
+              })
+              const layerIndex = currentFloor === key ? Floors.length : Floors.length-index - 1;
+              return (
+                <li
+                  key={key}
+                  className={className}
+                  style={{top: `${index*65}px`, zIndex: layerIndex}}
+                  onClick={enabled ? this.handleChange.bind(this, key) : null}
+                >
+                  {key.split('').reverse().join('').toUpperCase()}
+                </li>
+              )
             })
-            return (
-              <li
-                key={key}
-                className={className}
-                onClick={enabled ? this.handleChange.bind(this, key) : null}
-              >
-                {key.split('').reverse().join('').toUpperCase()}
-              </li>
-            )
-          })
-        }
-      </ul>
+          }
+        </ul>
+      </div>
     )
   }
 }
