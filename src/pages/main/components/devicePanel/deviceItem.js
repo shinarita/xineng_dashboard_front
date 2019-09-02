@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import {
   selectDeviceType
 } from '@actions'
-import { toAdaptivePx } from '@utils'
+import { toAdaptiveVw } from '@utils'
 
 class DeviceItem extends React.Component {
   static propTypes = {
@@ -54,7 +54,7 @@ class DeviceItem extends React.Component {
       >
         <div className='item-title'>
           <p className='item-title-text'>{title}</p>
-          <img className='item-icon' style={{ width: toAdaptivePx(width), height: toAdaptivePx(height) }} src={icon} />
+          <img className='item-icon' style={{ width: toAdaptiveVw(width), height: toAdaptiveVw(height) }} src={icon} />
         </div>
         <ul className='subitem-list'>
           {

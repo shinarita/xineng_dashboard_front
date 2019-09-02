@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { switchFloor } from '@actions'
-import { toAdaptivePx } from '@utils'
+import { toAdaptiveVw } from '@utils'
 
 const Floors = [
   { key: '3f', enabled: true },
@@ -38,7 +38,7 @@ class FloorList extends React.Component {
                 <li
                   key={key}
                   className={className}
-                  style={{ top: toAdaptivePx(index * 65), zIndex: layerIndex }}
+                  style={{ top: toAdaptiveVw(index * 65), zIndex: layerIndex }}
                   onClick={enabled ? this.handleChange.bind(this, key) : null}
                 >
                   {key.split('').reverse().join('').toUpperCase()}

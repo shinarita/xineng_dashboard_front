@@ -8,7 +8,7 @@ import classnames from 'classnames'
 import { RoomPolygons, DeviceStatusimages, MointorPositions, ElevatorPositions } from './config'
 import { DeviceTypes } from '@constants'
 import { getRoomDeviceInfo, controlRoomAc, controlLight } from '@actions'
-import { toAdaptivePx } from '@utils'
+import { toAdaptiveVw } from '@utils'
 import _ from 'lodash'
 
 class BuildingPanel extends React.Component {
@@ -223,8 +223,8 @@ class BuildingPanel extends React.Component {
                 key={room}
                 src={icon}
                 style={{
-                  top: `${toAdaptivePx(iconPosition.top)}`,
-                  left: `${toAdaptivePx(iconPosition.left)}`
+                  top: `${toAdaptiveVw(iconPosition.top)}`,
+                  left: `${toAdaptiveVw(iconPosition.left)}`
                 }}
               />
             )
@@ -245,8 +245,8 @@ class BuildingPanel extends React.Component {
                 key={id}
                 src={require('./images/icon_monitor.png')}
                 style={{
-                  top: `${toAdaptivePx(y)}`,
-                  left: `${toAdaptivePx(x)}`
+                  top: `${toAdaptiveVw(y)}`,
+                  left: `${toAdaptiveVw(x)}`
                 }}
               />
             )
@@ -274,8 +274,8 @@ class BuildingPanel extends React.Component {
                 key={id}
                 src={require(`./images/${iconName}.png`)}
                 style={{
-                  top: `${toAdaptivePx(y)}`,
-                  left: `${toAdaptivePx(x)}`
+                  top: `${toAdaptiveVw(y)}`,
+                  left: `${toAdaptiveVw(x)}`
                 }}
               />
             )

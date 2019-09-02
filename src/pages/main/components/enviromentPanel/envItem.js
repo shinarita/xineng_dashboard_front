@@ -11,6 +11,7 @@ class EnvItem extends React.Component {
     title: PropTypes.string.isRequired,
     value: PropTypes.string,
     unit: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
     switchCentralVentilation: PropTypes.func.isRequired
   }
 
@@ -78,10 +79,12 @@ class EnvItem extends React.Component {
   }
 
   render() {
-    const { type, title } = this.props
+    const { type, title, icon } = this.props
     return (
       <div className='env-item-container'>
-        <div className={classnames('env-icon', type)} />
+        <div className='env-icon-container'>
+          <img className={classnames('icon-img', type)} src={icon} />
+        </div>
         <div className='env-usage-desc'>
           {this.renderTitle(title)}
           {

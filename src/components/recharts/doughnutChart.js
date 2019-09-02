@@ -9,17 +9,39 @@ export default class DoughnutChart extends React.Component {
     values: PropTypes.object.isRequired
   }
 
-  render() {
-    const style = {
-      width: toAdaptivePx(120),
-      height: toAdaptivePx(120)
+  constructor(props) {
+    super(props)
+    this.state = {
+      width: toAdaptivePx(120)
     }
-    const { values, total } = this.props
+    this.calcStyle = this.calcStyle.bind(this)
+  }
+
+  calcStyle() {
+    this.setState({
+      width: toAdaptivePx(120)
+    })
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.calcStyle)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.calcStyle)
+  }
+
+  render() {
+    const { values } = this.props
+    const { width } = this.state
     const option = getPieChartOption(values)
     return (
       <ReactEcharts
         option={option}
-        style={style}
+        style={{
+          width: width,
+          height: width
+        }}
       />
     )
   }

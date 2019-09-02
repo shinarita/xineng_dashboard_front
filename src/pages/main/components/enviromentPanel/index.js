@@ -38,7 +38,7 @@ class EnviromentPanel extends React.Component {
         <ul className='env-list'>
           {
             data.map(item => {
-              const { key, title, unit, value } = item
+              const { key, title, unit, value, icon } = item
               return (
                 <EnvItem
                   key={key}
@@ -46,6 +46,7 @@ class EnviromentPanel extends React.Component {
                   title={title}
                   unit={unit}
                   value={value}
+                  icon={icon}
                 />
               )
             })

@@ -24,39 +24,49 @@
     margin-left: 10px;
   }
 
-  .env-icon {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-color: @main-deep-blue;
+  .env-icon-container {
     width: 60px;
     border-right: 1px solid @main-blue-darken;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
-    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    &.temperature {
-      background-image: url('../../../../images/icons/en_tempreture.png');
+    .icon-img {
+      display: block;
+      &.temperature {
+        width: 20px;
+        height: 41px;
+      }
+
+      &.humidity {
+        width: 36px;
+        height: 41px;
+      }
+
+      &.lux {
+        width: 39px;
+        height: 36px;
+      }
+
+      &.co2 {
+        width: 39px;
+        height: 26px;
+      }
+
+      &.pm25 {
+        width: 50px;
+        height: 36px;
+      }
+
+      &.fan {
+        width: 45px;
+        height: 36px;
+      }
     }
 
-    &.humidity {
-      background-image: url('../../../../images/icons/en_humidity.png');
-    }
 
-    &.lux {
-      background-image: url('../../../../images/icons/en_sunshine.png');
-    }
-
-    &.co2 {
-      background-image: url('../../../../images/icons/en_CO2.png');
-    }
-
-    &.pm25 {
-      background-image: url('../../../../images/icons/en_PM2.5.png');
-    }
-
-    &.fan {
-      background-image: url('../../../../images/icons/en_wind.png');
-    }
   }
 
   .env-usage-desc {

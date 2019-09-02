@@ -11,7 +11,7 @@ import Cookies from 'js-cookie'
 import './css/common.less'
 import { Actions } from '@constants'
 
-const createHistory = require("history").createHashHistory()
+const createHistory = require("history").createHashHistory
 
 const store = createStore(combineReducers(reducers), applyMiddleware(fetchMiddleware))
 const username = Cookies.get('username')
