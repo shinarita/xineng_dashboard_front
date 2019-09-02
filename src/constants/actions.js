@@ -19,6 +19,7 @@ export const GET_FACE_REG = 'GET_FACE_REG'
 
 //===============Normal Actions======================
 export const SWITCH_FLOOR = 'SWITCH_FLOOR'
+export const RESET_FLOOR = 'RESET_FLOOR'
 export const SELECT_DEVICE_TYPE = 'SELECT_DEVICE_TYPE'
 
 

@@ -7,6 +7,12 @@ export const switchFloor = (floor) => {
   }
 }
 
+export const resetFloor = () => {
+  return {
+    type: Actions.RESET_FLOOR
+  }
+}
+
 export const selectDeviceType = deviceType => {
   return {
     type: Actions.SELECT_DEVICE_TYPE,

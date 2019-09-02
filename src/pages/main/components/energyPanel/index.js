@@ -49,10 +49,10 @@ class EnergyPanel extends React.Component {
     return data
   }
   render() {
-    const { isFetchingEnergy, energyData, currentFloor } = this.props
+    const { isFetchingEnergy, energyData, currentFloor, homepage } = this.props
     let usageData = TotalUsageList
     let usageDirectionData = ElecUsageList
-    if (!isFetchingEnergy && !_.isEmpty(energyData) && !!energyData[currentFloor]) {
+    if (!isFetchingEnergy && !_.isEmpty(energyData) && !!energyData[homepage ? 'total' : currentFloor]) {
       usageData = this.getUsageData()
       usageDirectionData = this.getUsageDirectionData()
     }

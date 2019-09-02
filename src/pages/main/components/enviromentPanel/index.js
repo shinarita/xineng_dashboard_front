@@ -31,8 +31,8 @@ class EnviromentPanel extends React.Component {
     })
   }
   render() {
-    const { isFetchingEnv, envData, currentFloor } = this.props
-    const data = isFetchingEnv || _.isEmpty(envData) || !envData[currentFloor] ? EnvList : this.getUsageData()
+    const { isFetchingEnv, envData, currentFloor, homepage } = this.props
+    const data = isFetchingEnv || _.isEmpty(envData) || !envData[homepage ? 'total' : currentFloor] ? EnvList : this.getUsageData()
     return (
       <MiniPanel title='环境' className='env-panel-container'>
         <ul className='env-list'>

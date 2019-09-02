@@ -23,7 +23,7 @@ class Device extends React.Component {
     getFloorCameras: PropTypes.func.isRequired,
     getFloorLights: PropTypes.func.isRequired,
     currentFloor: PropTypes.string.isRequired,
-    currentDeviceType: PropTypes.string.isRequired,
+    currentDeviceType: PropTypes.string.isRequired
   }
   getDeviceData(deviceType, floor) {
     const { selectDeviceType, getFloorFireAlarms, getFloorIrSensors, getFloorAirConditioners,
