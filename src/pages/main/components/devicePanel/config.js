@@ -94,7 +94,7 @@ export const DeviceList = [
     height: 35,
     items: [
       { key: 'total', title: '总计', unit: '把', value: '' },
-      { key: 'open', title: '今日使用', unit: '扇', value: '' },
+      { key: 'open', title: '打开状态', unit: '扇', value: '' },
       { key: 'infra', title: '非法进入', unit: '扇', value: '' },
     ]
   }, {
