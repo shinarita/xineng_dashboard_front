@@ -34,7 +34,7 @@ export default class EnergyItem extends React.Component {
     const newClassName = classnames('energy-item-container', className)
     return (
       <li className={newClassName} >
-        <img className='icon' src={require(`../../../../images/icons/icon_${icon}.png`)} />
+        <img className={classnames('icon', icon)} src={require(`../../../../images/icons/icon_${icon}.png`)} />
         <p className='title'>{title}</p>
         <p className='usage-line'>
           <span className='count'>{count || '--'}</span>
