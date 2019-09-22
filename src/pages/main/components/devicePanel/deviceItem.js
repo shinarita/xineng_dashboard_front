@@ -6,15 +6,12 @@ import { connect } from 'react-redux'
 import {
   selectDeviceType
 } from '@actions'
-import { toAdaptiveVw } from '@utils'
 
 class DeviceItem extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
     items: PropTypes.array.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
     homepage: PropTypes.bool,
     history: PropTypes.object,
@@ -41,7 +38,7 @@ class DeviceItem extends React.Component {
   }
 
   render() {
-    const { title, icon, items, height, width, id, homepage, currentDeviceType } = this.props
+    const { title, icon, items, id, homepage, currentDeviceType } = this.props
     let className = 'device-item-container'
     if (!homepage) {
       className = classnames('device-item-container', { selected: currentDeviceType === id })
@@ -54,7 +51,7 @@ class DeviceItem extends React.Component {
       >
         <div className='item-title'>
           <p className='item-title-text'>{title}</p>
-          <img className='item-icon' style={{ width: toAdaptiveVw(width), height: toAdaptiveVw(height) }} src={icon} />
+          <img className='item-icon' src={icon} />
         </div>
         <ul className='subitem-list'>
           {

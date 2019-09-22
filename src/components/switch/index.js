@@ -34,7 +34,6 @@ class Switch extends React.Component {
     return (
       <div className={classnames('switch-container', { on })}>
         <span className='switch-icon' onClick={this.handleSwitch}>
-          <img src={require('../../images/icons/icon_switch_1.png')} />
         </span>
         <p className='switch-tips'>
           <span style={{ opacity: on ? 1 : 0 }}>{tips[0]}</span>

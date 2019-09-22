@@ -248,6 +248,11 @@ class BuildingPanel extends React.Component {
                   top: `${toAdaptiveVw(y)}`,
                   left: `${toAdaptiveVw(x)}`
                 }}
+
+              // style={{
+              //   top: y,
+              //   left: x
+              // }}
               />
             )
           })
@@ -277,6 +282,10 @@ class BuildingPanel extends React.Component {
                   top: `${toAdaptiveVw(y)}`,
                   left: `${toAdaptiveVw(x)}`
                 }}
+              // style={{
+              //   top: y,
+              //   left: x
+              // }}
               />
             )
           })

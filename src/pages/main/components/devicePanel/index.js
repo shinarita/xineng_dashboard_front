@@ -79,7 +79,7 @@ class DevicePanel extends React.Component {
           <ul className='device-list' style={{ left: `-${index * ItemWidth}px` }}>
             {
               data.map(item => {
-                const { key, items, title, icon, height, width } = item
+                const { key, items, title, icon } = item
                 return (
                   <DeviceItem
                     key={key}
@@ -87,8 +87,6 @@ class DevicePanel extends React.Component {
                     title={title}
                     items={items}
                     icon={icon}
-                    height={height}
-                    width={width}
                     homepage={homepage}
                     history={history}
                   />

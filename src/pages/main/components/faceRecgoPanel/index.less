@@ -56,20 +56,24 @@
     border-top: 1px dashed @main-blue;
     overflow-y: auto;
     position: relative;
-    &::-webkit-scrollbar{
+
+    &::-webkit-scrollbar {
       width: 5px;
     }
+
     &::-webkit-scrollbar-thumb {
       border-radius: 4px;
       background: #41A2F9;
     }
+
     &::-webkit-scrollbar-track {
       background: rgba(65, 162, 249, .4);
     }
 
     .person-list {
       width: 100%;
-      &::-webkit-scrollbar{
+
+      &::-webkit-scrollbar {
         display: block;
         width: 4px;
         background: #fff;
@@ -84,6 +88,10 @@
       color: #fff;
       font-size: 12px;
       cursor: pointer;
+
+      &:last-child {
+        border-bottom: none;
+      }
 
       &:hover,
       &.selected {

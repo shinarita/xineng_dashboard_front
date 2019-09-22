@@ -5,8 +5,6 @@ export const DeviceList = [
     key: DeviceTypes.fireAlarm,
     title: '消防报警',
     icon: require('../../../../images/icons/icon_control_fire.png'),
-    width: 44,
-    height: 35,
     items: [
       { key: 'detectors', title: '烟感数量', unit: '个', value: '' },
       { key: 'alarms', title: '报警数', unit: '个', value: '' },
@@ -16,8 +14,6 @@ export const DeviceList = [
     key: DeviceTypes.irSensors,
     title: '人体感应',
     icon: require('../../../../images/icons/icon_control_body.png'),
-    width: 34,
-    height: 34,
     items: [
       {
         key: 'rooms', title: '工作中', unit: '间', value: function (row) {
@@ -42,8 +38,6 @@ export const DeviceList = [
     key: DeviceTypes.centralAc,
     title: '中央空调',
     icon: require('../../../../images/icons/icon_control_aircondition.png'),
-    width: 34,
-    height: 34,
     items: [
       {
         key: 'running_outer', title: '外机运行', unit: '台', value: function (row) {
@@ -63,8 +57,6 @@ export const DeviceList = [
     key: DeviceTypes.elevator,
     title: '电梯',
     icon: require('../../../../images/icons/icon_control_elevator.png'),
-    width: 34,
-    height: 34,
     items: [
       {
         key: 'location1', title: '客梯停靠', unit: '', value: function (row) {
@@ -90,8 +82,6 @@ export const DeviceList = [
     key: DeviceTypes.lock,
     title: '门锁',
     icon: require('../../../../images/icons/icon_control_cocker.png'),
-    width: 29,
-    height: 35,
     items: [
       { key: 'total', title: '总计', unit: '把', value: '' },
       { key: 'open', title: '打开状态', unit: '扇', value: '' },
@@ -112,8 +102,6 @@ export const DeviceList = [
     key: DeviceTypes.light,
     title: '照明',
     icon: require('../../../../images/icons/icon_control_light.png'),
-    width: 27,
-    height: 27,
     items: [
       { key: 'total', title: '总计', unit: '个', value: '' },
       {
